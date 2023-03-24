@@ -1,17 +1,22 @@
 package com.example.weather.homefragment.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.mvvn.network.RemoteSource
 import com.example.weather.currentWeather.viewModel.CurrentWeatherViewModelFactory
 import com.example.weather.database.ConcreteLocalSource
 import com.example.weather.databinding.FragmentHomePageBinding
 import com.example.weather.homefragment.viewmodel.CurrentWeatherViewModel
 import com.example.weather.model.Repository
 import com.example.weather.network.WeatherClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 
 class HomePageFragment : Fragment() {
@@ -23,7 +28,7 @@ lateinit var binding: FragmentHomePageBinding
     private var lat = "33.44"
     private var lon = "-94.04"
     private var lang = "en"
-    private val apiKey= "524d6128b39af7be6274529023557609"
+    private val apiKey= "4a059725f93489b95183bbcb8c6829b9"
 
 
     companion object {
@@ -51,7 +56,17 @@ lateinit var binding: FragmentHomePageBinding
                 ConcreteLocalSource(requireContext()),requireActivity()))
 
         currentViewModel = ViewModelProvider(this, currentViewModelFactory).get(CurrentWeatherViewModel::class.java)
-        currentViewModel.getCurrentWeather(lat,lon,lang,apiKey)
+
+        MainScope().launch(Dispatchers.IO){
+            currentViewModel.getCurrentWeather(lat,lon,lang,apiKey)
+            // Log.i("nada", "onCreate: ${data.body().toString()}")
+        }
+     //   currentViewModel.getCurrentWeather(lat,lon,lang,apiKey)
+//        var remoteSource = RemoteSource
+//        MainScope().launch(Dispatchers.IO){
+//            var data =remoteSource.getCurrentWeather(lat,lon,lang,apiKey)
+//           // Log.i("nada", "onCreate: ${data.body().toString()}")
+//        }
 
     }
 

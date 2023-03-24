@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService{
-    @GET("weather")
+    @GET("onecall")
     suspend fun getCurrentWeather(@Query("lat") lat: String?,
                                   @Query("lon") lon: String?,
                                   @Query("lang") lang:String,
