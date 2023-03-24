@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         val navController = findNavController(this, R.id.fragmentView)
         setupWithNavController(navigationView, navController)
-        print("")
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
