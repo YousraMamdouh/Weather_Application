@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_setthings" />
     <fragment
         android:id="@+id/homePageFragment2"
-        android:name="com.example.weather.ui.HomePageFragment"
+        android:name="com.example.weather.homefragment.view.HomePageFragment"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment

@@ -2,6 +2,7 @@ package com.example.weather.model
 
 import android.content.Context
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import com.example.mvvn.network.RemoteSource
 import com.example.weather.database.LocalSource
@@ -23,7 +24,9 @@ class Repository private constructor(var remoteSource: RemoteSource,
             )
         }
     }
-    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String): WeatherModel {
+    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String): WeatherModel
+    {
+        //println("da5alt el repo")
         val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey)
         println("bosy da eli wasali delwa2ty:"+currentWeather.current.weather.get(0).id)
         return currentWeather

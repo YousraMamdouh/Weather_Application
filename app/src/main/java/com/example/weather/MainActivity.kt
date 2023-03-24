@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var navigationView: NavigationView
     lateinit var drawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayout)
         val actionBar = supportActionBar
         actionBar!!.setHomeAsUpIndicator(R.drawable.menu)
-        actionBar!!.setDisplayShowHomeEnabled(true)
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayShowHomeEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
         val navController = findNavController(this, R.id.fragmentView)
         setupWithNavController(navigationView, navController)
 
