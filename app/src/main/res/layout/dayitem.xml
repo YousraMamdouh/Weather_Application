@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
             tools:text="Sunday" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/dayIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,19 +45,19 @@
             app:layout_constraintGuide_begin="131dp" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/weatherdesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toEndOf="@+id/dayIcon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="clouds" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/weatherTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
