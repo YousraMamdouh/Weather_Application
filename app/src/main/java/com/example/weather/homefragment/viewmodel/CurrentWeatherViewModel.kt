@@ -17,16 +17,16 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel(){
 
     //Expose returned online Data
     val onlineWeather: LiveData<WeatherModel> = currentLocationWeather
-    fun getCurrentWeather(lat:String,lon:String,lang:String,apiKey:String):WeatherModel{
+    fun getCurrentWeather(lat:String,lon:String,lang:String,apiKey:String){
 
         viewModelScope.launch{
             println("raye7 agebo w el lon:"+lon)
-            weather = iRepo.getCurrentLocationWeather(lat,lon,lang,apiKey)
+         val weather= iRepo.getCurrentLocationWeather(lat,lon,lang,apiKey)
             withContext(Dispatchers.Main){
                 currentLocationWeather.postValue(weather)
             }
         }
-return weather
+
     }
 
 //    fun insertCurrentWeather(favModel: LocalCurrentWeatherModel) {
