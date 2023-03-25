@@ -1,9 +1,14 @@
 package com.example.weather.homefragment.view
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.R
 import com.example.weather.currentWeather.viewModel.CurrentWeatherViewModelFactory
 import com.example.weather.database.ConcreteLocalSource
+import com.example.weather.databinding.CustomDialogueBinding
 import com.example.weather.databinding.FragmentHomePageBinding
 import com.example.weather.homefragment.viewmodel.CurrentWeatherViewModel
 import com.example.weather.model.Repository
@@ -26,11 +32,15 @@ class HomePageFragment : Fragment() {
 
 
     lateinit var binding: FragmentHomePageBinding
+
     private lateinit var currentViewModel: CurrentWeatherViewModel
     private lateinit var currentViewModelFactory: CurrentWeatherViewModelFactory
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var hoursAdapter: HourlyAdapter
+    private var isGpsChecked=false;
    // private lateinit var weatherObj: WeatherModel
+
+    lateinit var dialog: Dialog
     private var lat = "33.44"
     private var lon = "-94.04"
     private var lang = "en"
@@ -51,9 +61,17 @@ class HomePageFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
         // currentViewModel = ViewModelProvider(this, currentViewModelFactory).get(CurrentWeatherViewModel::class.java)
+       // showDialogOpenLocationSettings()
 
         println("ana fl home fragment, raye7 agebo w el lon:" + lon)
         return binding.root
+    }
+
+
+
+        private fun goToLocationSettings() {
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+        startActivity(intent)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -146,6 +164,8 @@ class HomePageFragment : Fragment() {
         }
 
     }
+
+
 
 }
 

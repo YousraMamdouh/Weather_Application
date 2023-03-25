@@ -6,4 +6,12 @@
     <string name="pressure">Pressure</string>
     <string name="wind">Wind</string>
     <string name="clouds">Clouds</string>
+    <string name="go_to_location_settings_dialog_title">Request to open location ٍsettings</string>
+    <string name="go_to_location_settings_dialog_msg">please allow go to ٍsettings and open location </string>
+    <string name="initialSetup">Initial Setup</string>
+    <string name="pleaseSelectLocationOption">Please select an option for detecting location</string>
+    <string name="gps">GPS</string>
+    <string name="map">Map</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
 </resources>
