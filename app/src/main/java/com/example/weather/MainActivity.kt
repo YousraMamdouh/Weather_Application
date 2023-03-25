@@ -1,5 +1,6 @@
 package com.example.weather
 
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
