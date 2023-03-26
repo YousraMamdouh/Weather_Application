@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.R
@@ -30,19 +31,19 @@ import java.util.*
 
 class HomePageFragment : Fragment() {
 
-
+val args:HomePageFragmentArgs by navArgs()
     lateinit var binding: FragmentHomePageBinding
 
     private lateinit var currentViewModel: CurrentWeatherViewModel
     private lateinit var currentViewModelFactory: CurrentWeatherViewModelFactory
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var hoursAdapter: HourlyAdapter
-    private var isGpsChecked=false;
+
    // private lateinit var weatherObj: WeatherModel
 
     lateinit var dialog: Dialog
-    private var lat = "33.44"
-    private var lon = "-94.04"
+    lateinit var lat:String
+ lateinit var lon :String
     private var lang = "en"
     private val apiKey = "4a059725f93489b95183bbcb8c6829b9"
 
@@ -56,6 +57,10 @@ class HomePageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        lon=args.lon
+        lat=args.lan
+        println("fl home:"+lon)
+        println("fl home:"+lat)
         daysAdapter= DaysAdapter()
         hoursAdapter= HourlyAdapter()
         // Inflate the layout for this fragment
@@ -64,6 +69,7 @@ class HomePageFragment : Fragment() {
        // showDialogOpenLocationSettings()
 
         println("ana fl home fragment, raye7 agebo w el lon:" + lon)
+        println("ana fl home fragment, raye7 agebo w el lan:" + lat)
         return binding.root
     }
 

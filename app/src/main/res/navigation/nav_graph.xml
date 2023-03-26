@@ -14,7 +14,14 @@
         android:id="@+id/homePageFragment2"
         android:name="com.example.weather.homefragment.view.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <argument
+            android:name="lon"
+            app:argType="string" />
+        <argument
+            android:name="lan"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/alertsFragment2"
         android:name="com.example.weather.ui.AlertsFragment"
