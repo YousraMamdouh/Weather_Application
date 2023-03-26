@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 
@@ -31,10 +32,14 @@ lateinit var dialog: Dialog
         actionBar!!.setHomeAsUpIndicator(R.drawable.menu)
         actionBar.setDisplayShowHomeEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
-        val navController = findNavController(this, R.id.fragmentView)
+        //val navController = findNavController(this, R.id.fragmentView)
+        val navHostFragment=supportFragmentManager.findFragmentById(R.id.fragmentView) as NavHostFragment
+        val navController=navHostFragment.navController
         setupWithNavController(navigationView, navController)
 
-
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+//        val navController = navHostFragment!!.navController
 
     }
 
