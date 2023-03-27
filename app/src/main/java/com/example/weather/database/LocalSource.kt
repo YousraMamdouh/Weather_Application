@@ -1,6 +1,7 @@
 package com.example.weather.database
 
 import androidx.lifecycle.LiveData
+import com.example.weather.model.WeatherModel
 
 
 interface LocalSource {
@@ -17,4 +18,7 @@ interface LocalSource {
 //    fun deleteAlertInfo(customAlert: CustomAlert)
 //    fun insertAlertWeather(customAlert: CustomAlert)
 
+     suspend fun getStoredCurrentWeatherObject():WeatherModel
+
+    suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 }

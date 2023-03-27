@@ -1,7 +1,10 @@
 package com.example.weather.homefragment.view
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -48,10 +51,10 @@ val args:HomePageFragmentArgs by navArgs()
     private val apiKey = "4a059725f93489b95183bbcb8c6829b9"
 
 
-    companion object {
-        private const val PERMISSION_ID = 100
-
-    }
+//    companion object {
+//        private const val PERMISSION_ID = 100
+//
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,14 +111,26 @@ val args:HomePageFragmentArgs by navArgs()
             currentViewModelFactory
         ).get(CurrentWeatherViewModel::class.java)
 
-        MainScope().launch(Dispatchers.IO) {
-          currentViewModel.getCurrentWeather(lat, lon, lang, apiKey)
-//            updateUi()
-
+        //network check
+        val connectionManager: ConnectivityManager =
+            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            println("fe net ya basha")
+            MainScope().launch(Dispatchers.IO) {
+                currentViewModel.getCurrentWeather(lat, lon, lang, apiKey)
             }
-        updateUi()
+            updateUi()
 
+        }
+        else
+        {
+            println("mafeesh net ya amar")
+        }
     }
+
+
 
     fun updateUi() {
         currentViewModel.onlineWeather.observe(requireActivity()){
