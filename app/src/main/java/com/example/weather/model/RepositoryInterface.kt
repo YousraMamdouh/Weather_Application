@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 
 interface RepositoryInterface {
     suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String):WeatherModel
+   // suspend fun getStoredCurrentWeatherObject():WeatherModel
+
+    suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 
 
 //    //Store weather info

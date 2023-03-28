@@ -18,7 +18,7 @@ class  ConcreteLocalSource (context: Context
     }
 
     override suspend fun insertCurrentWeatherObject(weatherObject: WeatherModel) {
-    return dao.insertCurrentWeatherObject(weatherObject)
+   dao.insertCurrentWeatherObject(weatherObject)
     }
 
 

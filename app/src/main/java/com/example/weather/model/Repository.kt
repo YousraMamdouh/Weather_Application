@@ -32,6 +32,14 @@ class Repository private constructor(var remoteSource: RemoteSource,
         return currentWeather
     }
 
+//    override suspend fun getStoredCurrentWeatherObject(): WeatherModel {
+//        TODO("Not yet implemented")
+//    }
+
+    override suspend fun insertCurrentWeatherObject(weatherObject: WeatherModel) {
+    localSource.insertCurrentWeatherObject(weatherObject)
+    }
+
 
 //    override fun insertWeather(weatherInfo: LocalCurrentWeatherModel) {
 //        localSource.insertWeather(weatherInfo)
