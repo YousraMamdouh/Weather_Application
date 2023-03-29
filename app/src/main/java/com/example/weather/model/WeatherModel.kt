@@ -19,5 +19,5 @@ data class WeatherModel(
 //    val minutely: List<Minutely>,
     val timezone: String,
     val timezone_offset: Int,
-    var alerts:List<Alerts>
+//    var alerts:List<Alerts>
 )

@@ -36,9 +36,9 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
     fun getCurrentWeatherObjectFromDatabase()
     {
         viewModelScope.launch {
-            val weather = iRepo.getStoredCurrentWeatherObjectFromDatabase()
-            withContext(Dispatchers.IO) {
 
+            withContext(Dispatchers.IO) {
+                val weather = iRepo.getStoredCurrentWeatherObjectFromDatabase()
                 currentLocationWeatherFromDatabase.postValue(weather)
             }
         }

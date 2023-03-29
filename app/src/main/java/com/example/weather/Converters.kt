@@ -34,11 +34,11 @@ class Converters {
 //        Gson().fromJson(string, Array<Minutely>::class.java).toList()
 
 
-    @TypeConverter
-    fun fromAlertToGson(alerts: List<Alerts?>?) = Gson().toJson(alerts)!!
-
-    @TypeConverter
-    fun fromGsonToAlert(stringAlert: String?) =
-        Gson().fromJson(stringAlert, Array<Alerts?>::class.java)?.toList()
+//    @TypeConverter
+//    fun fromAlertToGson(alerts: List<Alerts?>?) = Gson().toJson(alerts)!!
+//
+//    @TypeConverter
+//    fun fromGsonToAlert(stringAlert: String?) =
+//        Gson().fromJson(stringAlert, Array<Alerts?>::class.java)?.toList()
 
 }
