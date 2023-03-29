@@ -80,4 +80,8 @@ dependencies {
     //location
     implementation"com.google.android.gms:play-services-location:17.1.0"
 
+    //maps
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
 }
