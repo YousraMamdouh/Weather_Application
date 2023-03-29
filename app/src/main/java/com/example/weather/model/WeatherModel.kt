@@ -16,7 +16,7 @@ data class WeatherModel(
     @PrimaryKey
     val lat: Double,
     val lon: Double,
-    val minutely: List<Minutely>,
+//    val minutely: List<Minutely>,
     val timezone: String,
     val timezone_offset: Int,
     var alerts:List<Alerts>

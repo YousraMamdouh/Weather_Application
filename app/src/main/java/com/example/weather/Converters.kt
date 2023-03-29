@@ -25,13 +25,13 @@ class Converters {
     fun fromGsonToHourlyList(stringHourly: String) =
         Gson().fromJson(stringHourly, Array<Hourly>::class.java).toList()
 
-    @TypeConverter
-    fun fromMinutelyToGson(minutely: List<Minutely>): String = Gson().toJson(minutely)
-
-
-    @TypeConverter
-    fun fromGsonToMinutely(string: String): List<Minutely> =
-        Gson().fromJson(string, Array<Minutely>::class.java).toList()
+//    @TypeConverter
+//    fun fromMinutelyToGson(minutely: List<Minutely>?) = Gson().toJson(minutely)!!
+//
+//
+//    @TypeConverter
+//    fun fromGsonToMinutely(string: String?)=
+//        Gson().fromJson(string, Array<Minutely>::class.java).toList()
 
 
     @TypeConverter

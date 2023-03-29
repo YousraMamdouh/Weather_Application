@@ -6,7 +6,7 @@ import com.example.weather.model.WeatherModel
 @Dao
 interface WeatherDao {
     @Query("SELECT * FROM weather")
-    suspend fun getStoredCurrentWeather():WeatherModel
+   fun getStoredCurrentWeather():WeatherModel
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCurrentWeatherObject(weatherObject:WeatherModel)

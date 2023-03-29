@@ -16,9 +16,11 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
    // private lateinit var weather: WeatherModel
     private val iRepo: RepositoryInterface = repo
     private val currentLocationWeather = MutableLiveData<WeatherModel>()
+    private val currentLocationWeatherFromDatabase=MutableLiveData<WeatherModel>()
 
     //Expose returned online Data
     val onlineWeather: LiveData<WeatherModel> = currentLocationWeather
+    val offlineWeather: LiveData<WeatherModel> = currentLocationWeatherFromDatabase
     fun getCurrentWeather(lat: String, lon: String, lang: String, apiKey: String) {
 
         viewModelScope.launch {
@@ -31,14 +33,27 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
 
     }
 
+    fun getCurrentWeatherObjectFromDatabase()
+    {
+        viewModelScope.launch {
+            val weather = iRepo.getStoredCurrentWeatherObjectFromDatabase()
+            withContext(Dispatchers.IO) {
+
+                currentLocationWeatherFromDatabase.postValue(weather)
+            }
+        }
+
+
+    }
+
     fun insertCurrentWeather(weatherObj: WeatherModel) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            iRepo.insertCurrentWeatherObject(weather)
-//        }
+
         viewModelScope.launch(Dispatchers.IO) {
           iRepo.insertCurrentWeatherObject(weatherObj)
         }
     }
+
+
 
 //    fun deleteAllWeather() {
 //        viewModelScope.launch(Dispatchers.IO) {
