@@ -55,15 +55,5 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
 
 
 
-//    fun deleteAllWeather() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            iRepo.deleteAll()
-//        }
-//    }
-//
-//    fun getLocalWeather(latLon:String): LiveData<LocalCurrentWeatherModel> {
-//        return iRepo.getLocalWeather(latLon)
-//    }
-
 
 }
