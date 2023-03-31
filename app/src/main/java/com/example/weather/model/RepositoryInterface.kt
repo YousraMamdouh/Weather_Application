@@ -15,11 +15,12 @@ interface RepositoryInterface {
 //    fun getLocalWeather(latLon:String): LiveData<LocalCurrentWeatherModel>
 
 
-//    //fav
-//    val storedFavWeather: LiveData<List<FavModel>>
-//    fun insertFavWeather(favInfo: FavModel)
-//    fun deleteFavWeather(favInfo: FavModel)
-//    fun getFavItemWeather(latLon:String): LiveData<FavModel>
+    //fav
+    val allStoredFavorites: LiveData<List<FavoriteModel>>
+    fun insertToFavorites(favInfo: FavoriteModel)
+    fun deleteFromFavorites(favInfo: FavoriteModel)
+
+
 
 //    //alert
 //    val storedAlertsWeather: LiveData<List<CustomAlert>>

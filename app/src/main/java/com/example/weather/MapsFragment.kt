@@ -129,8 +129,15 @@ class MapsFragment : Fragment() {
             alreadyExecuted = true
 
             binding.confirmationButton.setOnClickListener {
+                if(args.latitude.isNullOrEmpty()&&args.longitude.isNullOrEmpty())
+                {
 
-                navigateToHome(longitude.toString(), latitude.toString())
+
+                    navigateToFavorites(longitude.toString(),latitude.toString())
+                }else{
+                    navigateToHome(longitude.toString(), latitude.toString())
+                }
+
 
             }
         }
@@ -142,6 +149,12 @@ class MapsFragment : Fragment() {
         Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
 
     }
+    private fun navigateToFavorites(long: String, lat: String) {
+        val action = MapsFragmentDirections.actionMapsFragmentToFavoritesFragment2(long,lat)
+        Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
+
+    }
+
     fun moveMarkerToRequiredLocation(location:String,latitude:Double,longitude:Double)
     {
 

@@ -1,6 +1,7 @@
 package com.example.weather.database
 
 import androidx.lifecycle.LiveData
+import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
 
 
@@ -18,7 +19,13 @@ interface LocalSource {
 //    fun deleteAlertInfo(customAlert: CustomAlert)
 //    fun insertAlertWeather(customAlert: CustomAlert)
 
+    //current weather
      suspend fun getStoredCurrentWeatherObject():WeatherModel
 
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
+
+    //favorites
+    val allStoredFavorites: LiveData<List<FavoriteModel>>
+    fun insertToFavorites(favoriteModel: FavoriteModel)
+    fun deleteFromFavorites(favoriteModel: FavoriteModel)
 }

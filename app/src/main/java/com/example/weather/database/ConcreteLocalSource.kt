@@ -3,22 +3,39 @@ package com.example.weather.database
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
 
 
-class  ConcreteLocalSource (context: Context
+class ConcreteLocalSource(
+    context: Context
 ) : LocalSource {
-    private val dao:WeatherDao by lazy {
-        val db:WeatherDatabase= WeatherDatabase.getInstance(context)
+    override val allStoredFavorites: LiveData<List<FavoriteModel>>
+
+    private val dao: WeatherDao by lazy {
+        val db: WeatherDatabase = WeatherDatabase.getInstance(context)
         db.getProductsDAO()
     }
+    init {
+        allStoredFavorites = dao.getAllFavorites()
+    }
 
-    override  suspend fun getStoredCurrentWeatherObject(): WeatherModel {
- return dao.getStoredCurrentWeather()
+    override suspend fun getStoredCurrentWeatherObject(): WeatherModel {
+        return dao.getStoredCurrentWeather()
     }
 
     override suspend fun insertCurrentWeatherObject(weatherObject: WeatherModel) {
-   dao.insertCurrentWeatherObject(weatherObject)
+        dao.insertCurrentWeatherObject(weatherObject)
+    }
+
+
+
+    override fun insertToFavorites(favoriteModel: FavoriteModel) {
+        dao.insertToFavorites(favoriteModel)
+    }
+
+    override fun deleteFromFavorites(favoriteModel: FavoriteModel) {
+        dao.deleteFromFavorites(favoriteModel)
     }
 
 

@@ -35,6 +35,12 @@
         <action
             android:id="@+id/action_favoritesFragment2_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <argument
+            android:name="longitude"
+            app:argType="string" />
+        <argument
+            android:name="latitude"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/setupFragment"
@@ -63,5 +69,8 @@
         <argument
             android:name="Longitude"
             app:argType="string" />
+        <action
+            android:id="@+id/action_mapsFragment_to_favoritesFragment2"
+            app:destination="@id/favoritesFragment2" />
     </fragment>
 </navigation>
