@@ -25,18 +25,17 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
 
-
 class MapsFragment : Fragment() {
     lateinit var binding: FragmentMapsBinding
-lateinit    var marker:Marker
+    lateinit var marker: Marker
     val args: MapsFragmentArgs by navArgs()
-    lateinit var myMap:GoogleMap
-var alreadyExecuted=false
+    lateinit var myMap: GoogleMap
+    var alreadyExecuted = false
 
     private val callback = OnMapReadyCallback { googleMap ->
-        myMap=googleMap
+        myMap = googleMap
         val sydney = LatLng(args.latitude.toDouble(), args.longitude.toDouble())
-       marker= googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        marker = googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
@@ -47,9 +46,10 @@ var alreadyExecuted=false
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
         binding.confirmationButton.setOnClickListener {
-            if(alreadyExecuted==false)
+            if (alreadyExecuted == false)
 
-                Toast.makeText(context, "Please choose location to confirm", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Please choose location to confirm", Toast.LENGTH_LONG)
+                    .show()
 
         }
         mapInitialize()
@@ -63,72 +63,70 @@ var alreadyExecuted=false
 
     }
 
- fun mapInitialize() {
-       val locationRequest=LocationRequest()
-     locationRequest.setInterval(5000)
-     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-     locationRequest.setSmallestDisplacement(16f)
-     locationRequest.setFastestInterval(3000)
+    fun mapInitialize() {
+        val locationRequest = LocationRequest()
+        locationRequest.setInterval(5000)
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest.setSmallestDisplacement(16f)
+        locationRequest.setFastestInterval(3000)
 
-     binding.searchField.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-         if (actionId == EditorInfo.IME_ACTION_SEARCH
-             || actionId==EditorInfo.IME_ACTION_DONE
-                 )
-         println("yala raye7")
-             goToSearchLocation()
+        binding.searchField.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH
+                || actionId == EditorInfo.IME_ACTION_DONE
+            )
+                println("yala raye7")
+            goToSearchLocation()
 
 
-             return@OnEditorActionListener true
+            return@OnEditorActionListener true
 
-         false
-     })
+            false
+        })
 
     }
 
     private fun goToSearchLocation() {
-        var searchLocation:String=binding.searchField.text.toString()
-        var geocoder:Geocoder= Geocoder(requireContext())
+        var searchLocation: String = binding.searchField.text.toString()
+        var geocoder: Geocoder = Geocoder(requireContext())
         var list: List<Address> = ArrayList()
         try {
             println("fl try ")
-            list= geocoder.getFromLocationName(searchLocation,1)!!
+            list = geocoder.getFromLocationName(searchLocation, 1)!!
 
-        }catch (e:IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
-        if (list.size>0)
-        {
-           var address:Address= list.get(0)
-           var location=address.adminArea
-            var latitude:Double=address.latitude
-            var longitude:Double=address.longitude
+        if (list.size > 0) {
+            var address: Address = list.get(0)
+            var location = address.adminArea
+            var latitude: Double = address.latitude
+            var longitude: Double = address.longitude
 
-         var markerOptions: MarkerOptions
-if(marker!=null)
-{
-    marker.remove()
-}
+            var markerOptions: MarkerOptions
+            if (marker != null) {
+                marker.remove()
+            }
 
-             markerOptions = MarkerOptions()
-             markerOptions.title(location)
-             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-             markerOptions.position(LatLng(latitude, longitude))
-             myMap.addMarker(markerOptions)
-           myMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.position))
+            markerOptions = MarkerOptions()
+            markerOptions.title(location)
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            markerOptions.position(LatLng(latitude, longitude))
+            myMap.addMarker(markerOptions)
+            myMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.position))
 
             println("el location $location el lon $longitude el lat $latitude")
-    alreadyExecuted=true
+            alreadyExecuted = true
 
             binding.confirmationButton.setOnClickListener {
-                    navigateToHome(longitude.toString(),latitude.toString())
+                navigateToHome(longitude.toString(), latitude.toString())
 
             }
         }
 
     }
 
-    private fun navigateToHome(long:String,lat:String) {
-        val action = MapsFragmentDirections.actionMapsFragmentToHomePageFragment2(long,lat)
+    private fun navigateToHome(long: String, lat: String) {
+        val action = MapsFragmentDirections.actionMapsFragmentToHomePageFragment2(long, lat)
         Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
 
     }
