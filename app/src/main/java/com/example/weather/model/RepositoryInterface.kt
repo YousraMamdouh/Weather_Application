@@ -16,9 +16,11 @@ interface RepositoryInterface {
 
 
     //fav
-    val allStoredFavorites: LiveData<List<FavoriteModel>>
-    fun insertToFavorites(favInfo: FavoriteModel)
-    fun deleteFromFavorites(favInfo: FavoriteModel)
+
+
+    suspend fun getStoredFavorites():List<FavoriteModel>?
+  suspend  fun insertToFavorites(favInfo: FavoriteModel)
+   suspend fun deleteFromFavorites(favInfo: FavoriteModel)
 
 
 

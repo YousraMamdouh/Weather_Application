@@ -10,14 +10,14 @@ import com.example.weather.model.WeatherModel
 class ConcreteLocalSource(
     context: Context
 ) : LocalSource {
-    override val allStoredFavorites: LiveData<List<FavoriteModel>>
+  ///  override val allStoredFavorites: LiveData<List<FavoriteModel>>
 
     private val dao: WeatherDao by lazy {
         val db: WeatherDatabase = WeatherDatabase.getInstance(context)
         db.getProductsDAO()
     }
     init {
-        allStoredFavorites = dao.getAllFavorites()
+       // allStoredFavorites = dao.getAllFavorites()
     }
 
     override suspend fun getStoredCurrentWeatherObject(): WeatherModel {
@@ -28,13 +28,16 @@ class ConcreteLocalSource(
         dao.insertCurrentWeatherObject(weatherObject)
     }
 
+    override suspend fun getAllStoredFavorites(): List<FavoriteModel> {
+      return dao.getAllFavorites()
+    }
 
 
-    override fun insertToFavorites(favoriteModel: FavoriteModel) {
+    override suspend fun insertToFavorites(favoriteModel: FavoriteModel) {
         dao.insertToFavorites(favoriteModel)
     }
 
-    override fun deleteFromFavorites(favoriteModel: FavoriteModel) {
+    override suspend fun deleteFromFavorites(favoriteModel: FavoriteModel) {
         dao.deleteFromFavorites(favoriteModel)
     }
 

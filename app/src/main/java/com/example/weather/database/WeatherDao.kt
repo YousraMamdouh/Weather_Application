@@ -16,7 +16,7 @@ interface WeatherDao {
 
     //favorites
     @Query("SELECT * FROM favorites")
-    fun getAllFavorites() : LiveData<List<FavoriteModel>>
+    fun getAllFavorites() : List<FavoriteModel>
 
     @Insert
     fun insertToFavorites(favoriteModel: FavoriteModel)

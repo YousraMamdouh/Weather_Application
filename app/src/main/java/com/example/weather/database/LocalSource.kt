@@ -25,7 +25,11 @@ interface LocalSource {
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 
     //favorites
-    val allStoredFavorites: LiveData<List<FavoriteModel>>
-    fun insertToFavorites(favoriteModel: FavoriteModel)
-    fun deleteFromFavorites(favoriteModel: FavoriteModel)
+//    val allStoredFavorites: LiveData<List<FavoriteModel>>
+//    fun insertToFavorites(favoriteModel: FavoriteModel)
+//    fun deleteFromFavorites(favoriteModel: FavoriteModel)
+
+    suspend fun insertToFavorites(favoriteModel: FavoriteModel)
+    suspend fun deleteFromFavorites(favoriteModel: FavoriteModel)
+    suspend fun getAllStoredFavorites(): List<FavoriteModel>
 }

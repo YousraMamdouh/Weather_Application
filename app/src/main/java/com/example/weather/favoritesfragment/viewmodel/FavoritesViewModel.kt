@@ -6,20 +6,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.RepositoryInterface
-import com.example.weather.model.WeatherModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FavoritesViewModel(repo: RepositoryInterface) : ViewModel() {
    // private lateinit var weather: WeatherModel
     private val iRepo: RepositoryInterface = repo
+    private var _favorites:MutableLiveData<List<FavoriteModel>> = MutableLiveData<List<FavoriteModel>>()
+    val favorites:LiveData<List<FavoriteModel>> = _favorites
 
+    init {
+        getLocalFavorites()
+    }
 
-fun insetToFavorites(favoriteModel: FavoriteModel)
+    private fun getLocalFavorites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _favorites.postValue(iRepo.getStoredFavorites())
+        }
+    }
+
+    fun insetToFavorites(favoriteModel: FavoriteModel)
 {
-    CoroutineScope(Dispatchers.IO).launch {
+    viewModelScope.launch(Dispatchers.IO) {
       iRepo.insertToFavorites(favoriteModel)
     }
 }
@@ -30,8 +39,8 @@ fun insetToFavorites(favoriteModel: FavoriteModel)
         }
     }
 
-    fun getAllFavorites():LiveData<List<FavoriteModel>>
-    {
-        return iRepo.allStoredFavorites
-    }
+//    fun getAllFavorites():LiveData<List<FavoriteModel>>
+//    {
+//        return iRepo.allStoredFavorites
+//    }
 }

@@ -42,14 +42,18 @@ class Repository private constructor(var remoteSource: RemoteSource,
     localSource.insertCurrentWeatherObject(weatherObject)
     }
 
-    override val allStoredFavorites: LiveData<List<FavoriteModel>>
-        get() = localSource.allStoredFavorites
+    override suspend fun getStoredFavorites(): List<FavoriteModel>? {
+    return localSource.getAllStoredFavorites()
+    }
 
-    override fun insertToFavorites(favoriteModel: FavoriteModel) {
+//    override val allStoredFavorites: LiveData<List<FavoriteModel>>
+//        get() = localSource.allStoredFavorites
+
+    override suspend fun insertToFavorites(favoriteModel: FavoriteModel) {
        localSource.insertToFavorites(favoriteModel)
     }
 
-    override fun deleteFromFavorites(favoriteModel: FavoriteModel) {
+    override suspend fun deleteFromFavorites(favoriteModel: FavoriteModel) {
     localSource.deleteFromFavorites(favoriteModel)
     }
 

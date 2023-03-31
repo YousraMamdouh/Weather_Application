@@ -133,7 +133,7 @@ class MapsFragment : Fragment() {
                 {
 
 
-                    navigateToFavorites(longitude.toString(),latitude.toString())
+                    navigateToFavorites(longitude.toString(),latitude.toString(),country)
                 }else{
                     navigateToHome(longitude.toString(), latitude.toString())
                 }
@@ -149,8 +149,10 @@ class MapsFragment : Fragment() {
         Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
 
     }
-    private fun navigateToFavorites(long: String, lat: String) {
-        val action = MapsFragmentDirections.actionMapsFragmentToFavoritesFragment2(long,lat)
+    private fun navigateToFavorites(long: String, lat: String,country:String) {
+        println("raye7 el favorites w el lon=$long")
+        val action = MapsFragmentDirections.actionMapsFragmentToFavoritesFragment2()
+        action.setLatitude(lat).setLocality(country).setLongitude(long)
         Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
 
     }
