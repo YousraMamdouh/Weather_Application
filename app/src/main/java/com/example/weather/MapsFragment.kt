@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
+import kotlin.collections.ArrayList
 
 
 class MapsFragment : Fragment() {
@@ -34,9 +35,18 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         myMap = googleMap
-        val sydney = LatLng(args.latitude.toDouble(), args.longitude.toDouble())
-        marker = googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+     if(args.latitude.isNullOrEmpty()&&args.longitude.isNullOrEmpty()) {
+         val sydney = LatLng(31.2000917, 29.9187383)
+         marker = googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+     }
+        else {
+         val sydney = LatLng(args.latitude.toDouble(), args.longitude.toDouble())
+         marker = googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+     }
+
+
     }
 
     override fun onCreateView(
@@ -87,10 +97,9 @@ class MapsFragment : Fragment() {
 
     private fun goToSearchLocation() {
         var searchLocation: String = binding.searchField.text.toString()
-        var geocoder: Geocoder = Geocoder(requireContext())
+        var geocoder= Geocoder(requireContext())
         var list: List<Address> = ArrayList()
         try {
-            println("fl try ")
             list = geocoder.getFromLocationName(searchLocation, 1)!!
 
         } catch (e: IOException) {
@@ -98,26 +107,29 @@ class MapsFragment : Fragment() {
         }
         if (list.size > 0) {
             var address: Address = list.get(0)
+            var country:String=address.countryName.toString()
             var location = address.adminArea
             var latitude: Double = address.latitude
             var longitude: Double = address.longitude
 
-            var markerOptions: MarkerOptions
             if (marker != null) {
                 marker.remove()
             }
-
+            var markerOptions: MarkerOptions
             markerOptions = MarkerOptions()
             markerOptions.title(location)
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             markerOptions.position(LatLng(latitude, longitude))
             myMap.addMarker(markerOptions)
             myMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.position))
+       // moveMarkerToRequiredLocation(location,latitude,longitude)
 
-            println("el location $location el lon $longitude el lat $latitude")
+
+            println("el location $country el lon $longitude el lat $latitude")
             alreadyExecuted = true
 
             binding.confirmationButton.setOnClickListener {
+
                 navigateToHome(longitude.toString(), latitude.toString())
 
             }
@@ -128,6 +140,10 @@ class MapsFragment : Fragment() {
     private fun navigateToHome(long: String, lat: String) {
         val action = MapsFragmentDirections.actionMapsFragmentToHomePageFragment2(long, lat)
         Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
+
+    }
+    fun moveMarkerToRequiredLocation(location:String,latitude:Double,longitude:Double)
+    {
 
     }
 }

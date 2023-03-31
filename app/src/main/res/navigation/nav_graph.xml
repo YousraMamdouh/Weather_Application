@@ -29,9 +29,13 @@
         tools:layout="@layout/fragment_alerts" />
     <fragment
         android:id="@+id/favoritesFragment2"
-        android:name="com.example.weather.ui.FavoritesFragment"
+        android:name="com.example.weather.favoritesfragment.view.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment2_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/setupFragment"
         android:name="com.example.weather.SetupFragment"

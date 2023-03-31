@@ -174,7 +174,7 @@ if(alreadyExcuted==false&&isGpsChecked==true)
 }
             else if(alreadyExcuted==false&&isGpsChecked==false)
 {
-                NavigateToMap()
+                navigateToMap()
 }
             println("el lon=" + lon)
             println("el lan=" + lan)
@@ -188,7 +188,7 @@ alreadyExcuted=true
    findNavController(requireActivity(),R.id.fragmentView).navigate(action)
 
     }
-    fun NavigateToMap()
+    fun navigateToMap()
     {
         alreadyExcuted=true
         val action=SetupFragmentDirections.actionSetupFragmentToMapsFragment(lon,lan)
