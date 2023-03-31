@@ -41,5 +41,23 @@
             android:id="@+id/action_setupFragment_to_homePageFragment2"
             app:destination="@id/homePageFragment2"
             />
+        <action
+            android:id="@+id/action_setupFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.weather.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_homePageFragment2"
+            app:destination="@id/homePageFragment2" />
+        <argument
+            android:name="latitude"
+            app:argType="string" />
+        <argument
+            android:name="Longitude"
+            app:argType="string" />
     </fragment>
 </navigation>

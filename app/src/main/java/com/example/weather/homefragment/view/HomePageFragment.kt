@@ -1,12 +1,10 @@
 package com.example.weather.homefragment.view
 
-import android.app.Dialog
+
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.ceil
 
 
 class HomePageFragment : Fragment() {
@@ -50,16 +49,12 @@ class HomePageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         lon = args.lon
         lat = args.lan
-        println("fl home:" + lon)
-        println("fl home:" + lat)
         daysAdapter = DaysAdapter()
         hoursAdapter = HourlyAdapter()
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
-        println("ana fl home fragment, raye7 agebo w el lon:" + lon)
-        println("ana fl home fragment, raye7 agebo w el lan:" + lat)
         return binding.root
     }
 
@@ -128,7 +123,7 @@ class HomePageFragment : Fragment() {
                 updateUI(it)
                 showCurrentDate()
                 selectAppropriateIcon(it)
-                println("eli m3aya ${it.current.weather.toString()}")
+                println("eli m3aya ${it.current.weather}")
             }
             println("mafeesh net ya amar")
 
@@ -176,7 +171,7 @@ class HomePageFragment : Fragment() {
         binding.cloudsDesc.text = current.current.clouds.toString()
         binding.pressureDesc.text = current.current.pressure.toString()
         binding.windDesc.text = current.current.wind_deg.toString()
-        binding.temp.text = Math.ceil(current.current.temp).toInt().toString() + "°C"
+        binding.temp.text = ceil(current.current.temp).toInt().toString() + "°C"
         binding.city.text = current.timezone
         binding.humidityIcon.setImageResource(R.drawable.humidty)
         binding.pressureIcon.setImageResource(R.drawable.pressure)
@@ -186,13 +181,13 @@ class HomePageFragment : Fragment() {
         daysAdapter.notifyDataSetChanged()
         hoursAdapter.submitList(current.hourly)
         hoursAdapter.notifyDataSetChanged()
-        val c: Date = Calendar.getInstance().getTime()
+        val c: Date = Calendar.getInstance().time
         println("Current time => $c")
     }
 
 
     private fun showCurrentDate() {
-        val c: Date = Calendar.getInstance().getTime()
+        val c: Date = Calendar.getInstance().time
         println("Current time => $c")
 
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())

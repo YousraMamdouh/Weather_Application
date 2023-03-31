@@ -22,8 +22,6 @@ import androidx.navigation.Navigation.findNavController
 import com.example.weather.databinding.CustomDialogueBinding
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
-import java.util.concurrent.ConcurrentHashMap
-import java.util.function.Function
 
 const val PERISSION_ID = 44
 
@@ -91,23 +89,26 @@ var alreadyExcuted=false
             }
         }
         ok.setOnClickListener {
-            if (isGpsChecked == true) {
-                println("el check:" + isGpsChecked)
-                getMyCurrentLocation()
-                dialog.dismiss()
-                // goToLocationSettings()
-            }
+            getMyCurrentLocation()
+            dialog.dismiss()
+//            if (isGpsChecked == true) {
+//                println("el check:" + isGpsChecked)
+//
+//                // goToLocationSettings()
+//            }
+//
+//            else if(isGpsChecked==false)
+//            {
+//                dialog.dismiss()
+//
+//            }
         }
 
 
         return myView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // navigationView = view.findViewById(R.id.navigationView)
 
-    }
 
     private fun goToLocationSettings() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -167,9 +168,13 @@ var alreadyExcuted=false
             val mLastLocation: Location = locationResult.lastLocation
             lon = mLastLocation.longitude.toString()
             lan = mLastLocation.latitude.toString()
-if(alreadyExcuted==false)
+if(alreadyExcuted==false&&isGpsChecked==true)
 {
     navigateToHome()
+}
+            else if(alreadyExcuted==false&&isGpsChecked==false)
+{
+                NavigateToMap()
 }
             println("el lon=" + lon)
             println("el lan=" + lan)
@@ -182,6 +187,12 @@ alreadyExcuted=true
         val action = SetupFragmentDirections.actionSetupFragmentToHomePageFragment2(lon, lan)
    findNavController(requireActivity(),R.id.fragmentView).navigate(action)
 
+    }
+    fun NavigateToMap()
+    {
+        alreadyExcuted=true
+        val action=SetupFragmentDirections.actionSetupFragmentToMapsFragment(lon,lan)
+        findNavController(requireActivity(),R.id.fragmentView).navigate(action)
     }
 
     @SuppressLint("MissingPermission")

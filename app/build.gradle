@@ -3,6 +3,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 }
 
@@ -83,5 +84,6 @@ dependencies {
     //maps
 
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.karumi:dexter:6.2.3'
 
 }
