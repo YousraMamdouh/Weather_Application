@@ -48,7 +48,7 @@
             app:argType="string"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_favoritesFragment2_to_favoriteDetaildFragment"
+            android:id="@+id/action_favoritesFragment2_to_favoriteDetaildFragment2"
             app:destination="@id/favoriteDetaildFragment" />
     </fragment>
     <fragment
@@ -88,10 +88,10 @@
         android:label="fragment_favorite_detaild"
         tools:layout="@layout/fragment_favorite_details" >
         <argument
-            android:name="lat"
+            android:name="latitude"
             app:argType="string" />
         <argument
-            android:name="lon"
+            android:name="longitude"
             app:argType="string" />
     </fragment>
 </navigation>

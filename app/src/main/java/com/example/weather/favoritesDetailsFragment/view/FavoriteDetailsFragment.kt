@@ -38,8 +38,8 @@ class FavoriteDetailsFragment : Fragment() {
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var hoursAdapter: HourlyAdapter
     val args: FavoriteDetailsFragmentArgs by navArgs()
-    private lateinit var viewModel:FavoritesDetailsViewModel
-    private lateinit var viewModelFactory:FavoritesDetailsViewModelFactory
+    private lateinit var viewModel: FavoritesDetailsViewModel
+    private lateinit var viewModelFactory: FavoritesDetailsViewModelFactory
     lateinit var binding: FragmentFavoriteDetailsBinding
 
 
@@ -49,13 +49,12 @@ class FavoriteDetailsFragment : Fragment() {
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        lon = args.lon
-        lat = args.lat
+        lon =args.longitude
+        lat = args.latitude
         daysAdapter = DaysAdapter()
         hoursAdapter = HourlyAdapter()
         binding = FragmentFavoriteDetailsBinding.inflate(inflater, container, false)
@@ -77,16 +76,16 @@ class FavoriteDetailsFragment : Fragment() {
             }
         }
         println("raye7 agebo w el lon:" + lon)
-       viewModelFactory = FavoritesDetailsViewModelFactory(
+        viewModelFactory = FavoritesDetailsViewModelFactory(
             Repository.getInstance(
                 WeatherClient.getInstance(),
                 ConcreteLocalSource(requireContext()), requireActivity()
             )
         )
 
-       viewModel = ViewModelProvider(
+        viewModel = ViewModelProvider(
             this,
-           viewModelFactory
+            viewModelFactory
         ).get(FavoritesDetailsViewModel::class.java)
 
         MainScope().launch(Dispatchers.IO) {

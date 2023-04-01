@@ -32,8 +32,8 @@ lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var favoriteViewModelFactory:FavoritesViewModelFactory
     lateinit var lat: String
     lateinit var lon: String
-    private var lang = "en"
-    private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
+//    private var lang = "en"
+//    private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
 
 
 
@@ -44,6 +44,7 @@ lateinit var favoritesAdapter: FavoritesAdapter
 //if(args.locality.equals("0"))
          //   println("mama ya sety ${args.latitude}")
         favoritesAdapter= FavoritesAdapter(this)
+       favoritesAdapter.notifyDataSetChanged()
 binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -82,8 +83,6 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
                     args.longitude.toDouble()
                 )
             )
-
-            favoritesAdapter.notifyDataSetChanged()
         }
       //   favoriteViewModel.insetToFavorites(FavoriteModel("omek","3".toDouble(),"5".toDouble()))
 
@@ -92,6 +91,7 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         {
             if(it!=null)
                 favoritesAdapter.submitList(it)
+            favoritesAdapter.notifyDataSetChanged()
         }
         binding.addFavoriteButton.setOnClickListener {
             navigateToMap()
@@ -107,9 +107,13 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 
     override fun onDeleteClick(favoriteModel: FavoriteModel) {
     favoriteViewModel.deleteFromFavorites(favoriteModel)
+
     }
 
     override fun onDisplayClick(favoriteModel: FavoriteModel) {
+val action =FavoritesFragmentDirections.actionFavoritesFragment2ToFavoriteDetaildFragment2(favoriteModel.lat.toString(),favoriteModel.lon.toString())
+       Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
+
 
     }
 }
