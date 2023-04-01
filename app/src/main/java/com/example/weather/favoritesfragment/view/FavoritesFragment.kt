@@ -20,7 +20,7 @@ import com.example.weather.model.Repository
 import com.example.weather.network.WeatherClient
 
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(),OnClickListener {
 
 
     lateinit var binding: FragmentFavoritesBinding
@@ -30,7 +30,10 @@ lateinit var favoritesAdapter: FavoritesAdapter
 
     private lateinit var favoriteViewModel:FavoritesViewModel
     private lateinit var favoriteViewModelFactory:FavoritesViewModelFactory
-
+    lateinit var lat: String
+    lateinit var lon: String
+    private var lang = "en"
+    private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
 
 
 
@@ -40,7 +43,7 @@ lateinit var favoritesAdapter: FavoritesAdapter
     ): View {
 //if(args.locality.equals("0"))
          //   println("mama ya sety ${args.latitude}")
-        favoritesAdapter= FavoritesAdapter()
+        favoritesAdapter= FavoritesAdapter(this)
 binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -100,5 +103,13 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 
        val action=FavoritesFragmentDirections.actionFavoritesFragment2ToMapsFragment("","")
       Navigation.findNavController(requireActivity(), R.id.fragmentView).navigate(action)
+    }
+
+    override fun onDeleteClick(favoriteModel: FavoriteModel) {
+    favoriteViewModel.deleteFromFavorites(favoriteModel)
+    }
+
+    override fun onDisplayClick(favoriteModel: FavoriteModel) {
+
     }
 }

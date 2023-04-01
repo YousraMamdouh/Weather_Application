@@ -11,9 +11,10 @@ import com.example.weather.databinding.FavoriteItemsBinding
 import com.example.weather.model.FavoriteModel
 
 
-class FavoritesAdapter: ListAdapter<FavoriteModel, FavoritesAdapter.FavoritesViewHolder>(DaysDiffUtil()) {
+class FavoritesAdapter( val onClickListener: OnClickListener) : ListAdapter<FavoriteModel, FavoritesAdapter.FavoritesViewHolder>(DaysDiffUtil()) {
     lateinit var context: Context
     lateinit var binding: FavoriteItemsBinding
+
     inner class FavoritesViewHolder(var binding:FavoriteItemsBinding): RecyclerView.ViewHolder(binding.root) {
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
@@ -26,6 +27,12 @@ class FavoritesAdapter: ListAdapter<FavoriteModel, FavoritesAdapter.FavoritesVie
 
         val currentObj=getItem(position)
         holder.binding.countryNameView.text=currentObj.locality
+        holder.binding.layout.setOnClickListener {
+onClickListener.onDisplayClick(currentObj)
+        }
+        holder.binding.deleteCountryButton.setOnClickListener {
+            onClickListener.onDeleteClick(currentObj)
+        }
 
     }
 }

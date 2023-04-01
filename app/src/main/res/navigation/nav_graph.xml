@@ -47,6 +47,9 @@
             android:name="locality"
             app:argType="string"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_favoritesFragment2_to_favoriteDetaildFragment"
+            app:destination="@id/favoriteDetaildFragment" />
     </fragment>
     <fragment
         android:id="@+id/setupFragment"
@@ -78,5 +81,17 @@
         <action
             android:id="@+id/action_mapsFragment_to_favoritesFragment2"
             app:destination="@id/favoritesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteDetaildFragment"
+        android:name="com.example.weather.favoritesDetailsFragment.view.FavoriteDetailsFragment"
+        android:label="fragment_favorite_detaild"
+        tools:layout="@layout/fragment_favorite_details" >
+        <argument
+            android:name="lat"
+            app:argType="string" />
+        <argument
+            android:name="lon"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -18,7 +18,7 @@ interface WeatherDao {
     @Query("SELECT * FROM favorites")
     fun getAllFavorites() : List<FavoriteModel>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertToFavorites(favoriteModel: FavoriteModel)
 
     @Delete
