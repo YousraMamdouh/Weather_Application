@@ -13,15 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FavoritesViewModel(repo: RepositoryInterface) : ViewModel() {
-   // private lateinit var weather: WeatherModel
-    private val iRepo: RepositoryInterface = repo
-    private val currentLocationWeather = MutableLiveData<WeatherModel>()
 
+    private val iRepo: RepositoryInterface = repo
     private var _favorites:MutableLiveData<List<FavoriteModel>> = MutableLiveData<List<FavoriteModel>>()
     val favorites:LiveData<List<FavoriteModel>> = _favorites
-
-    val onlineWeather: LiveData<WeatherModel> = currentLocationWeather
-
 
     init {
         getLocalFavorites()
@@ -37,12 +32,14 @@ class FavoritesViewModel(repo: RepositoryInterface) : ViewModel() {
 {
     viewModelScope.launch(Dispatchers.IO) {
       iRepo.insertToFavorites(favoriteModel)
+        getLocalFavorites()
     }
 }
     fun deleteFromFavorites(favoriteModel: FavoriteModel)
     {
         viewModelScope.launch(Dispatchers.IO) {
            iRepo.deleteFromFavorites(favoriteModel)
+            getLocalFavorites()
         }
     }
 //    fun getCurrentWeather(lat: String, lon: String, lang: String, apiKey: String) {

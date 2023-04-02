@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,8 @@ import com.example.weather.favoritesfragment.viewmodel.FavoritesViewModelFactory
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.Repository
 import com.example.weather.network.WeatherClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class FavoritesFragment : Fragment(),OnClickListener {
@@ -76,13 +79,16 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         if(!args.locality.equals("0")) {
             println("ana keda m3aya value")
             println("dol ahom ${args.latitude}")
-            favoriteViewModel.insetToFavorites(
-                FavoriteModel(
-                    args.locality,
-                    args.latitude.toDouble(),
-                    args.longitude.toDouble()
+
+                favoriteViewModel.insetToFavorites(
+                    FavoriteModel(
+                        args.locality,
+                        args.latitude.toDouble(),
+                        args.longitude.toDouble()
+                    )
                 )
-            )
+
+
         }
       //   favoriteViewModel.insetToFavorites(FavoriteModel("omek","3".toDouble(),"5".toDouble()))
 
