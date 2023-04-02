@@ -144,21 +144,21 @@ class HomePageFragment : Fragment() {
     private fun selectAppropriateIcon(current: WeatherModel) {
 
         when (current.current.weather[0].main) {
-            "Clouds" -> binding.weatherIcon.setImageResource(R.drawable.current_cloudy)
-            "Clear" -> binding.weatherIcon.setImageResource(R.drawable.current_sun)
-            "Thunderstorm" -> binding.weatherIcon.setImageResource(R.drawable.cloudy_storm)
-            "Drizzle" -> binding.weatherIcon.setImageResource(R.drawable.current_rain)
-            "Rain" -> binding.weatherIcon.setImageResource(R.drawable.current_rain)
-            "Snow" -> binding.weatherIcon.setImageResource(R.drawable.current_snow)
-            "Mist" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Smoke" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Haze" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Dust" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Fog" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Sand" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Ash" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
+            "Clouds" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy)
+            "Clear" -> binding.weatherIcon.setImageResource(R.drawable._sun)
+            "Thunderstorm" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy_storm)
+            "Drizzle" -> binding.weatherIcon.setImageResource(R.drawable._current_rain)
+            "Rain" -> binding.weatherIcon.setImageResource(R.drawable._current_rain)
+            "Snow" -> binding.weatherIcon.setImageResource(R.drawable._current_snow)
+            "Mist" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Smoke" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Haze" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Dust" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Fog" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Sand" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Ash" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
             "Squall" -> binding.weatherIcon.setImageResource(R.drawable.current_squall)
-            "Tornado" -> binding.weatherIcon.setImageResource(R.drawable.ic_tornado)
+            "Tornado" -> binding.weatherIcon.setImageResource(R.drawable._tornado)
         }
     }
 
@@ -173,10 +173,10 @@ class HomePageFragment : Fragment() {
         binding.windDesc.text = current.current.wind_deg.toString()
         binding.temp.text = ceil(current.current.temp).toInt().toString() + "°C"
         binding.city.text = current.timezone
-        binding.humidityIcon.setImageResource(R.drawable.humidty)
-        binding.pressureIcon.setImageResource(R.drawable.pressure)
+        binding.humidityIcon.setImageResource(R.drawable.humidity_icon)
+        binding.pressureIcon.setImageResource(R.drawable.pressure_icon)
         binding.windIcon.setImageResource(R.drawable.wind)
-        binding.cloudsIcon.setImageResource(R.drawable.clouds)
+        binding.cloudsIcon.setImageResource(R.drawable.cloud_icon)
         daysAdapter.submitList(current.daily)
         daysAdapter.notifyDataSetChanged()
         hoursAdapter.submitList(current.hourly)

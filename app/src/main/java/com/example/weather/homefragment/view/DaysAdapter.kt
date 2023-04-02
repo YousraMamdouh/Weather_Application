@@ -33,24 +33,24 @@ class DaysAdapter: ListAdapter<Daily, DaysAdapter.DailyViewHolder>(DaysDiffUtil(
         holder.binding.day.text=day
         holder.binding.maxTemp.text=Math.ceil(currentObj.temp.max).toInt().toString()+"°C"
         holder.binding.minTemp.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
-        holder.binding.weatherdesc.text=currentObj.weather[0].description
+      //  holder.binding.weatherdesc.text=currentObj.weather[0].description
     //    holder.binding.dayLowTxt.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
         when (currentObj.weather[0].main) {
-            "Clouds" -> holder.binding.dayIcon.setImageResource(R.drawable.cloudy)
-            "Clear" -> holder.binding.dayIcon.setImageResource(R.drawable.sun)
-            "Thunderstorm" -> holder.binding.dayIcon.setImageResource(R.drawable.thunderstorm)
-            "Drizzle" -> holder.binding.dayIcon.setImageResource(R.drawable.drizzle)
-            "Rain" -> holder.binding.dayIcon.setImageResource(R.drawable.rain)
-            "Snow" -> holder.binding.dayIcon.setImageResource(R.drawable.snow)
-            "Mist" -> holder.binding.dayIcon.setImageResource(R.drawable.mist)
-            "Smoke" -> holder.binding.dayIcon.setImageResource(R.drawable.smoke)
+            "Clouds" -> holder.binding.dayIcon.setImageResource(R.drawable._cloudy)
+            "Clear" -> holder.binding.dayIcon.setImageResource(R.drawable._clear)
+            "Thunderstorm" -> holder.binding.dayIcon.setImageResource(R.drawable._thunderstorm)
+            "Drizzle" -> holder.binding.dayIcon.setImageResource(R.drawable._drizzle)
+            "Rain" -> holder.binding.dayIcon.setImageResource(R.drawable._rain)
+            "Snow" -> holder.binding.dayIcon.setImageResource(R.drawable._snow)
+            "Mist" -> holder.binding.dayIcon.setImageResource(R.drawable._mist)
+            "Smoke" -> holder.binding.dayIcon.setImageResource(R.drawable._dust)
             "Haze" -> holder.binding.dayIcon.setImageResource(R.drawable.haze)
-            "Dust" -> holder.binding.dayIcon.setImageResource(R.drawable.dust)
-            "Fog" -> holder.binding.dayIcon.setImageResource(R.drawable.fog)
-            "Sand" -> holder.binding.dayIcon.setImageResource(R.drawable.dust)
+            "Dust" -> holder.binding.dayIcon.setImageResource(R.drawable._dust)
+            "Fog" -> holder.binding.dayIcon.setImageResource(R.drawable._fog)
+            "Sand" -> holder.binding.dayIcon.setImageResource(R.drawable._dust)
             "Ash" -> holder.binding.dayIcon.setImageResource(R.drawable.haze)
-            "Squall" -> holder.binding.dayIcon.setImageResource(R.drawable.squall)
-            "Tornado" -> holder.binding.dayIcon.setImageResource(R.drawable.ic_tornado)
+            "Squall" -> holder.binding.dayIcon.setImageResource(R.drawable._squall)
+            "Tornado" -> holder.binding.dayIcon.setImageResource(R.drawable._tornado)
         }
         //Glide.with(context).load("https://openweathermap.org/img/wn/${currentObj.weather.get(0).icon}@2x.png").into(holder.binding.dayIcon)
 

@@ -104,21 +104,21 @@ class FavoriteDetailsFragment : Fragment() {
     private fun selectAppropriateIcon(current: WeatherModel) {
 
         when (current.current.weather[0].main) {
-            "Clouds" -> binding.weatherIcon.setImageResource(R.drawable.current_cloudy)
-            "Clear" -> binding.weatherIcon.setImageResource(R.drawable.current_sun)
-            "Thunderstorm" -> binding.weatherIcon.setImageResource(R.drawable.cloudy_storm)
-            "Drizzle" -> binding.weatherIcon.setImageResource(R.drawable.current_rain)
-            "Rain" -> binding.weatherIcon.setImageResource(R.drawable.current_rain)
-            "Snow" -> binding.weatherIcon.setImageResource(R.drawable.current_snow)
-            "Mist" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Smoke" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Haze" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Dust" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Fog" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Sand" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
-            "Ash" -> binding.weatherIcon.setImageResource(R.drawable.current_fog)
+            "Clouds" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy)
+            "Clear" -> binding.weatherIcon.setImageResource(R.drawable._sun)
+            "Thunderstorm" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy_storm)
+            "Drizzle" -> binding.weatherIcon.setImageResource(R.drawable._current_rain)
+            "Rain" -> binding.weatherIcon.setImageResource(R.drawable._current_rain)
+            "Snow" -> binding.weatherIcon.setImageResource(R.drawable._current_snow)
+            "Mist" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Smoke" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Haze" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Dust" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Fog" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Sand" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
+            "Ash" -> binding.weatherIcon.setImageResource(R.drawable._current_fog)
             "Squall" -> binding.weatherIcon.setImageResource(R.drawable.current_squall)
-            "Tornado" -> binding.weatherIcon.setImageResource(R.drawable.ic_tornado)
+            "Tornado" -> binding.weatherIcon.setImageResource(R.drawable._tornado)
         }
     }
 
