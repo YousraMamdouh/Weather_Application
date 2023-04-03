@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MapsFragment">
+    tools:context=".utilities.MapsFragment">
 
 
 
@@ -13,7 +13,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsFragment"
+        tools:context=".utilities.MapsFragment"
        />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

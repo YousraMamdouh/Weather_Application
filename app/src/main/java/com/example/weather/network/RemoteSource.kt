@@ -5,6 +5,6 @@ import com.example.weather.model.WeatherModel
 
 interface RemoteSource {
   //  suspend fun getProductsOverNetwork():List<Products>
-  suspend fun getCurrentWeather(lat:String,lon:String,lang:String,id:String): WeatherModel
+  suspend fun getCurrentWeather(lat:String,lon:String,lang:String,id:String,unit:String): WeatherModel
 
 }

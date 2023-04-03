@@ -1,10 +1,9 @@
 package com.example.weather.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.weather.Converters
+import com.example.weather.database.Converters
 
 @Entity(tableName = "weather")
 @TypeConverters(Converters::class)

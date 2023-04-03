@@ -45,6 +45,7 @@ class HomePageFragment : Fragment() {
     lateinit var lon: String
     private var lang = "en"
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
+    private val unit= "metric"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,7 +101,7 @@ class HomePageFragment : Fragment() {
         if (isConnected) {
             println("fe net ya basha")
             MainScope().launch(Dispatchers.IO) {
-                currentViewModel.getCurrentWeather(lat, lon, lang, apiKey)
+                currentViewModel.getCurrentWeather(lat, lon, lang, apiKey,unit)
             }
 
             //Update home details from internet object
@@ -185,7 +186,10 @@ class HomePageFragment : Fragment() {
         println("Current time => $c")
     }
 
+private fun setTempreature(current:WeatherModel)
+{
 
+}
     private fun showCurrentDate() {
         val c: Date = Calendar.getInstance().time
         println("Current time => $c")

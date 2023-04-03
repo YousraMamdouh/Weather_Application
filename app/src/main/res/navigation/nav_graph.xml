@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/setthingsFragment2"
-        android:name="com.example.weather.ui.SetthingsFragment"
+        android:name="com.example.weather.settingsFragment.view.SettingsFragment"
         android:label="fragment_setthings"
         tools:layout="@layout/fragment_setthings" />
     <fragment
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/alertsFragment2"
-        android:name="com.example.weather.ui.AlertsFragment"
+        android:name="com.example.weather.alertsFragment.AlertsFragment"
         android:label="fragment_alerts"
         tools:layout="@layout/fragment_alerts" />
     <fragment
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.example.weather.MapsFragment"
+        android:name="com.example.weather.utilities.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" >
         <action

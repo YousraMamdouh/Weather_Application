@@ -29,8 +29,9 @@ class WeatherClient private constructor(): RemoteSource {
         lon: String,
         lang: String,
         id: String,
+        unit:String
     ): WeatherModel {
-        val response=weatherService.getCurrentWeather(lat,lon,lang,id)
+        val response=weatherService.getCurrentWeather(lat,lon,lang,id,unit)
         return response
     }
 }

@@ -21,11 +21,11 @@ class FavoritesDetailsViewModel(repo: RepositoryInterface) : ViewModel() {
     //Expose returned online Data
     val onlineWeather: LiveData<WeatherModel> = currentLocationWeather
   //  val offlineWeather: LiveData<WeatherModel> = currentLocationWeatherFromDatabase
-    fun getCurrentWeather(lat: String, lon: String, lang: String, apiKey: String) {
+    fun getCurrentWeather(lat: String, lon: String, lang: String, apiKey: String,unit:String) {
 
         viewModelScope.launch {
             println("raye7 agebo w el lon:" + lon)
-            val weather = iRepo.getCurrentLocationWeather(lat, lon, lang, apiKey)
+            val weather = iRepo.getCurrentLocationWeather(lat, lon, lang, apiKey,unit)
             withContext(Dispatchers.Main) {
                 currentLocationWeather.postValue(weather)
             }

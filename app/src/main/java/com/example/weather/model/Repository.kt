@@ -24,10 +24,10 @@ class Repository private constructor(var remoteSource: RemoteSource,
             )
         }
     }
-    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String): WeatherModel
+    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): WeatherModel
     {
         //println("da5alt el repo")
-        val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey)
+        val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)
         println("bosy da eli wasali delwa2ty:"+currentWeather.current.weather.get(0).id)
         return currentWeather
     }

@@ -1,4 +1,4 @@
-package com.example.weather
+package com.example.weather.utilities
 
 import android.location.Address
 import android.location.Geocoder
@@ -12,7 +12,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+
+import com.example.weather.R
 import com.example.weather.databinding.FragmentMapsBinding
+
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

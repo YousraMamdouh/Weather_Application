@@ -3,7 +3,7 @@ package com.example.weather.model
 import androidx.lifecycle.LiveData
 
 interface RepositoryInterface {
-    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String):WeatherModel
+    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String):WeatherModel
     suspend fun getStoredCurrentWeatherObjectFromDatabase():WeatherModel
 
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)

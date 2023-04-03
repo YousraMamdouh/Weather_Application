@@ -47,6 +47,8 @@ class FavoriteDetailsFragment : Fragment() {
     lateinit var lon: String
     private var lang = "en"
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
+    private val unit= "metric"
+
 
 
     override fun onCreateView(
@@ -89,7 +91,7 @@ class FavoriteDetailsFragment : Fragment() {
         ).get(FavoritesDetailsViewModel::class.java)
 
         MainScope().launch(Dispatchers.IO) {
-            viewModel.getCurrentWeather(lat, lon, lang, apiKey)
+            viewModel.getCurrentWeather(lat, lon, lang, apiKey,unit)
         }
 
         //Update home details from internet object
