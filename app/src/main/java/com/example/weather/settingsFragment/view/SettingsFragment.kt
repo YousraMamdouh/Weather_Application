@@ -26,24 +26,24 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding =FragmentSetthingsBinding.inflate(inflater, container, false)
-
+binding.tempSwitch.isChecked=true
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tempSwitch.setOnClickListener{
-            if(isButtonChecked==false){
-                isButtonChecked=true
-                println("ana dlwa2ty Fahrenhit")
-            }
-
-            else
-            {
-                isButtonChecked=false
-                println("ana dlwa2ty celsius ")
-
-            }
-        }
+//        binding.tempSwitch.setOnClickListener{
+//            if(binding.tempSwitch.isChecked==false){
+//
+//                println("cccccccccccccccccccccccccccccc")
+//            }
+//
+//            else
+//            {
+//
+//                println("fffffffffffffffffffffffffffffffffffff ")
+//
+//            }
+//        }
     }
 }

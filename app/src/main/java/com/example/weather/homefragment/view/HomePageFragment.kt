@@ -40,6 +40,16 @@ class HomePageFragment : Fragment() {
     private lateinit var currentViewModelFactory: CurrentWeatherViewModelFactory
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var hoursAdapter: HourlyAdapter
+val sharedPrefs by lazy {
+    activity?.getSharedPreferences(
+      SHARED_PREF_NAME, Context.MODE_PRIVATE)
+}
+    private val SHARED_PREF_NAME="settingsPref"
+    private val KEY_TEMP="temp"
+    private val KEY_LANG="language"
+    private val KEY_SPEED="speed"
+    private val KEY_LOCATION="location"
+
 
     lateinit var lat: String
     lateinit var lon: String
@@ -59,6 +69,17 @@ class HomePageFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPrefs?.edit()?.putString(KEY_TEMP,"metric")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_LANG,"en")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_SPEED,"miles")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_LOCATION,"gps")?.apply()
+
+
+
+
+    }
 
 //    private fun goToLocationSettings() {
 //        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -172,7 +193,7 @@ class HomePageFragment : Fragment() {
         binding.cloudsDesc.text = current.current.clouds.toString()
         binding.pressureDesc.text = current.current.pressure.toString()
         binding.windDesc.text = current.current.wind_deg.toString()
-        binding.temp.text = ceil(current.current.temp).toInt().toString() + "°C"
+       setTempreature(current)
         binding.city.text = current.timezone
         binding.humidityIcon.setImageResource(R.drawable.humidity_icon)
         binding.pressureIcon.setImageResource(R.drawable.pressure_icon)
@@ -188,7 +209,17 @@ class HomePageFragment : Fragment() {
 
 private fun setTempreature(current:WeatherModel)
 {
+if((sharedPrefs?.getString(KEY_TEMP,null).toString()).equals("metric"))
+{
+    println("equal metric f3ln")
+    binding.temp.text = (current.current.temp).toInt().toString() + "°C"
+}
+    else
+{
+    println("la msh add keda")
 
+    binding.temp.text =((current.current.temp)*1.8+32).toInt().toString() + "°F"
+}
 }
     private fun showCurrentDate() {
         val c: Date = Calendar.getInstance().time
