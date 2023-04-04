@@ -76,6 +76,7 @@
             android:layout_height="match_parent">
 
             <com.example.weather.SwitchCompatEx
+                android:id="@+id/labhuageSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
@@ -123,6 +124,7 @@
             android:layout_height="match_parent">
 
             <com.example.weather.SwitchCompatEx
+                android:id="@+id/locationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
@@ -170,6 +172,7 @@
             android:layout_height="match_parent">
 
             <com.example.weather.SwitchCompatEx
+                android:id="@+id/speedSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_gravity="center"

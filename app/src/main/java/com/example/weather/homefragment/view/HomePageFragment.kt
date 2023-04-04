@@ -2,9 +2,11 @@ package com.example.weather.homefragment.view
 
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +34,7 @@ import kotlin.math.ceil
 
 
 class HomePageFragment : Fragment() {
-
+val TAG="mysettings"
     val args: HomePageFragmentArgs by navArgs()
     lateinit var binding: FragmentHomePageBinding
 
@@ -40,22 +42,25 @@ class HomePageFragment : Fragment() {
     private lateinit var currentViewModelFactory: CurrentWeatherViewModelFactory
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var hoursAdapter: HourlyAdapter
-val sharedPrefs by lazy {
-    activity?.getSharedPreferences(
-      SHARED_PREF_NAME, Context.MODE_PRIVATE)
-}
-    private val SHARED_PREF_NAME="settingsPref"
-    private val KEY_TEMP="temp"
-    private val KEY_LANG="language"
-    private val KEY_SPEED="speed"
-    private val KEY_LOCATION="location"
 
+    private val SHARED_PREF_NAME = "settingsPref"
+    private val KEY_TEMP = "temp"
+    private val KEY_LANG = "language"
+    private val KEY_SPEED = "speed"
+    private val KEY_LOCATION = "location"
 
+    val sharedPrefs by lazy {
+        activity?.getSharedPreferences(
+            SHARED_PREF_NAME, Context.MODE_PRIVATE
+        )
+    }
     lateinit var lat: String
     lateinit var lon: String
     private var lang = "en"
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
-    private val unit= "metric"
+    private val unit = "metric"
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,13 +76,12 @@ val sharedPrefs by lazy {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPrefs?.edit()?.putString(KEY_TEMP,"metric")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_LANG,"en")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_SPEED,"miles")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_LOCATION,"gps")?.apply()
-
-
-
+        sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
+        sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
+//        println("ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
+        Log.i(TAG,"ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
 
     }
 
@@ -122,7 +126,7 @@ val sharedPrefs by lazy {
         if (isConnected) {
             println("fe net ya basha")
             MainScope().launch(Dispatchers.IO) {
-                currentViewModel.getCurrentWeather(lat, lon, lang, apiKey,unit)
+                currentViewModel.getCurrentWeather(lat, lon, lang, apiKey, unit)
             }
 
             //Update home details from internet object
@@ -193,7 +197,7 @@ val sharedPrefs by lazy {
         binding.cloudsDesc.text = current.current.clouds.toString()
         binding.pressureDesc.text = current.current.pressure.toString()
         binding.windDesc.text = current.current.wind_deg.toString()
-       setTempreature(current)
+        setTempreature(current)
         binding.city.text = current.timezone
         binding.humidityIcon.setImageResource(R.drawable.humidity_icon)
         binding.pressureIcon.setImageResource(R.drawable.pressure_icon)
@@ -207,20 +211,17 @@ val sharedPrefs by lazy {
         println("Current time => $c")
     }
 
-private fun setTempreature(current:WeatherModel)
-{
-if((sharedPrefs?.getString(KEY_TEMP,null).toString()).equals("metric"))
-{
-    println("equal metric f3ln")
-    binding.temp.text = (current.current.temp).toInt().toString() + "°C"
-}
-    else
-{
-    println("la msh add keda")
+    private fun setTempreature(current: WeatherModel) {
+        if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
+            println("equal metric f3ln")
+            binding.temp.text = (current.current.temp).toInt().toString() + "°C"
+        } else {
+            println("la msh add keda")
 
-    binding.temp.text =((current.current.temp)*1.8+32).toInt().toString() + "°F"
-}
-}
+            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt().toString() + "°F"
+        }
+    }
+
     private fun showCurrentDate() {
         val c: Date = Calendar.getInstance().time
         println("Current time => $c")
