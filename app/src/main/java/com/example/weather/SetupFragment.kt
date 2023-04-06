@@ -26,6 +26,13 @@ import com.google.android.material.navigation.NavigationView
 const val PERISSION_ID = 44
 
 class SetupFragment : Fragment() {
+    private val KEY_LOCATION = "location"
+    private val SHARED_PREF_NAME = "settingsPref"
+    val sharedPrefs by lazy {
+        activity?.getSharedPreferences(
+            SHARED_PREF_NAME, Context.MODE_PRIVATE
+        )
+    }
     lateinit var navigationView: NavigationView
     lateinit var dialogueBinding: CustomDialogueBinding
     lateinit var myView: View
@@ -103,6 +110,9 @@ var alreadyExcuted=false
 //
 //            }
         }
+        cancel.setOnClickListener {
+            activity?.finish()
+        }
 
 
         return myView
@@ -170,10 +180,12 @@ var alreadyExcuted=false
             lan = mLastLocation.latitude.toString()
 if(alreadyExcuted==false&&isGpsChecked==true)
 {
+    sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
     navigateToHome()
 }
             else if(alreadyExcuted==false&&isGpsChecked==false)
 {
+    sharedPrefs?.edit()?.putString(KEY_LOCATION, "maps")?.apply()
                 navigateToMap()
 }
             println("el lon=" + lon)

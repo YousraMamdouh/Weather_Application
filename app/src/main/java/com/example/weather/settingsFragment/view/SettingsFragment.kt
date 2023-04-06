@@ -1,16 +1,11 @@
 package com.example.weather.settingsFragment.view
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.weather.R
 import com.example.weather.databinding.FragmentSetthingsBinding
 
 
@@ -35,7 +30,7 @@ class SettingsFragment : Fragment() {
 //    )
     val sharedPrefs by lazy {
         activity?.getSharedPreferences(
-            SHARED_PREF_NAME, Context.MODE_PRIVATE
+            SHARED_PREF_NAME,MODE_PRIVATE
         )
     }
 //val prefs: SharedPreferences? = activity?.getSharedPreferences("general_settings", Context.MODE_PRIVATE)
@@ -56,7 +51,7 @@ class SettingsFragment : Fragment() {
         if (!speed.equals("miles"))
             binding.speedSwitch.isChecked = true
         if (!language.equals("en"))
-            binding.labhuageSwitch.isChecked = true
+            binding.languageSwitch.isChecked = true
         if (!location.equals("gps"))
             binding.locationSwitch.isChecked = true
         return binding.root
@@ -64,40 +59,45 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPrefs?.edit()?.putString(KEY_TEMP, "Fahrenheit")?.apply()
+
+//        Log.i(TAG,"eli 2areto ${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
+//        Log.i(TAG,"ha3'yaro ahoh")
+//        sharedPrefs?.edit()?.putString(KEY_TEMP, "Fahrenheit")?.apply()
+//        Log.i(TAG,"dlwa2ty b2a ${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
+
+
         binding.tempSwitch.setOnClickListener{
             println("on switch clic;:${binding.tempSwitch.isChecked}")
         }
 
-//        binding.tempSwitch.setOnClickListener {
-//            if (binding.tempSwitch.isChecked==false) {
-//                sharedPrefs?.edit()?.putString(KEY_TEMP, "Fahrenheit")?.apply()
-//                Log.i(TAG,"dlwa2ty ktabt ${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
-//            } else if (binding.tempSwitch.isChecked==true) {
-//                sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
-//            }
-//        }
-//        binding.speedSwitch.setOnClickListener{
-//            if (binding.speedSwitch.isChecked==false) {
-//                sharedPrefs?.edit()?.putString(KEY_SPEED, "meters")?.apply()
-//            } else if (binding.speedSwitch.isChecked==true) {
-//                sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
-//            }
-//        }
-//        binding.labhuageSwitch.setOnClickListener {
-//            if (binding.labhuageSwitch.isChecked==false) {
-//                sharedPrefs?.edit()?.putString(KEY_LANG, "ar")?.apply()
-//            } else if (binding.labhuageSwitch.isChecked==true) {
-//                sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
-//            }
-//        }
-//        binding.locationSwitch.setOnClickListener {
-//            if (binding.locationSwitch.isChecked==false) {
-//                sharedPrefs?.edit()?.putString(KEY_LANG, "maps")?.apply()
-//            } else if (binding.locationSwitch.isChecked==true) {
-//                sharedPrefs?.edit()?.putString(KEY_LANG, "gps")?.apply()
-//            }
-//        }
+        binding.tempSwitch.setOnClickListener {
+            if ((sharedPrefs?.getString(KEY_TEMP, "null").toString()).equals("metric")) {
+                sharedPrefs?.edit()?.putString(KEY_TEMP, "Fahrenheit")?.apply()
+            } else if ((sharedPrefs?.getString(KEY_TEMP, "null").toString()).equals("Fahrenheit")) {
+                sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
+            }
+        }
+        binding.speedSwitch.setOnClickListener{
+            if ((sharedPrefs?.getString(KEY_SPEED, "null").toString()).equals("miles")) {
+                sharedPrefs?.edit()?.putString(KEY_SPEED, "meters")?.apply()
+            } else if ((sharedPrefs?.getString(KEY_SPEED, "null").toString()).equals("meters")) {
+                sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
+            }
+        }
+        binding.languageSwitch.setOnClickListener {
+            if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
+                sharedPrefs?.edit()?.putString(KEY_LANG, "ar")?.apply()
+            } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
+                sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
+            }
+        }
+        binding.locationSwitch.setOnClickListener {
+            if ((sharedPrefs?.getString(KEY_LOCATION, "null").toString()).equals("gps")) {
+                sharedPrefs?.edit()?.putString(KEY_LANG, "maps")?.apply()
+            } else if ((sharedPrefs?.getString(KEY_LOCATION, "null").toString()).equals("maps")) {
+                sharedPrefs?.edit()?.putString(KEY_LANG, "gps")?.apply()
+            }
+        }
 
     }
 }

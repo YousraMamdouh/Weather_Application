@@ -2,11 +2,9 @@ package com.example.weather.homefragment.view
 
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +28,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.ceil
 
 
 class HomePageFragment : Fragment() {
@@ -76,12 +73,12 @@ val TAG="mysettings"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
-        sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
 //        println("ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
-        Log.i(TAG,"ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
+    //    Log.i(TAG,"ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
 
     }
 
@@ -192,12 +189,13 @@ val TAG="mysettings"
     private fun updateUI(current: WeatherModel) {
 
         binding.weatherDescribtion.text = current.current.weather[0].description
-        binding.humidityDesc.text = current.current.humidity.toString()
+        binding.humidityDesc.text = current.current.humidity.toString()+" %"
         //tvVisibility.text=currentWeather.current.visibility.toString()
-        binding.cloudsDesc.text = current.current.clouds.toString()
-        binding.pressureDesc.text = current.current.pressure.toString()
-        binding.windDesc.text = current.current.wind_deg.toString()
-        setTempreature(current)
+        binding.cloudsDesc.text = (current.current.clouds).toString()+" %"
+        binding.pressureDesc.text = current.current.pressure.toString()+" "+ activity?.getString(R.string.hPa)
+      //  binding.windDesc.text = current.current.wind_deg.toString()
+        setSpeed(current)
+        setTemperature(current)
         binding.city.text = current.timezone
         binding.humidityIcon.setImageResource(R.drawable.humidity_icon)
         binding.pressureIcon.setImageResource(R.drawable.pressure_icon)
@@ -211,7 +209,7 @@ val TAG="mysettings"
         println("Current time => $c")
     }
 
-    private fun setTempreature(current: WeatherModel) {
+    private fun setTemperature(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
             println("equal metric f3ln")
             binding.temp.text = (current.current.temp).toInt().toString() + "°C"
@@ -219,6 +217,14 @@ val TAG="mysettings"
             println("la msh add keda")
 
             binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt().toString() + "°F"
+        }
+    }
+    private fun setSpeed(current: WeatherModel)
+    {
+        if ((sharedPrefs?.getString(KEY_SPEED, null).toString()).equals("miles")) {
+            binding.windDesc.text = ((current.current.wind_deg).toFloat()/ 3600 ).toString()+" "+activity?.getString(R.string.miles_hour)
+        } else {
+            binding.windDesc.text = current.current.wind_deg.toString()+" "+activity?.getString(R.string.meter_sec)
         }
     }
 
