@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.weather.R
 import com.example.weather.databinding.HouritemBinding
-import com.example.weather.model.Current
 import com.example.weather.model.Hourly
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,6 +16,14 @@ import java.util.*
 class HourlyAdapter : ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HoursDiffUtil()) {
     lateinit var context: Context
     lateinit var binding: HouritemBinding
+    private val SHARED_PREF_NAME = "settingsPref"
+    private val KEY_TEMP = "temp"
+
+    val sharedPrefs by lazy {
+     context. getSharedPreferences(
+            SHARED_PREF_NAME, Context.MODE_PRIVATE
+        )
+    }
 
     inner class HourlyViewHolder(var binding: HouritemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,16 +38,19 @@ class HourlyAdapter : ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HoursD
     }
 
     override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
-//        val currentObj = getItem(position)
-//        var time:String= getCurrentTime(currentObj.dt.toInt())
-//
-//        holder.binding.hour.text=time
-//        holder.binding.weather.text=Math.ceil(currentObj.temp).toInt().toString()+"°C"
-//        Glide.with(context).load("https://openweathermap.org/img/wn/${currentObj.weather.get(0).icon}@2x.png").into(holder.binding.icon)
+
         val currentObj=getItem(position)
         var time:String= getCurrentTime(currentObj.dt.toInt())
         holder.binding.hour.text=time
-        holder.binding.weather.text=Math.ceil(currentObj.temp).toInt().toString()+"°C"
+        if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
+            holder.binding.weather.text=Math.ceil(currentObj.temp).toInt().toString()+"°C"
+
+        } else {
+
+            holder.binding.weather.text=Math.ceil((currentObj.temp) * 1.8 + 32).toInt().toString()+"°F"
+
+        }
+
         when(currentObj.weather[0].main){
             "Clouds" -> holder.binding.icon.setImageResource(R.drawable._cloudy)
             "Clear" -> holder.binding.icon.setImageResource(R.drawable._clear)
@@ -69,6 +78,7 @@ class HourlyAdapter : ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HoursD
         return sdf.format(date)
 
     }
+
 }
 
 class HoursDiffUtil : DiffUtil.ItemCallback<Hourly>() {

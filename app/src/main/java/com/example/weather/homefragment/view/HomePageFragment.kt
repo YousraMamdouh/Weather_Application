@@ -53,7 +53,7 @@ val TAG="mysettings"
     }
     lateinit var lat: String
     lateinit var lon: String
-    private var lang = "en"
+    private var lang = "ar"
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
     private val unit = "metric"
 

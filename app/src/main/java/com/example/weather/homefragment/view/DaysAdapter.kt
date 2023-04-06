@@ -15,26 +15,53 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class DaysAdapter: ListAdapter<Daily, DaysAdapter.DailyViewHolder>(DaysDiffUtil()) {
+class DaysAdapter : ListAdapter<Daily, DaysAdapter.DailyViewHolder>(DaysDiffUtil()) {
     lateinit var context: Context
     lateinit var binding: DayitemBinding
-    inner class DailyViewHolder(var binding:DayitemBinding): RecyclerView.ViewHolder(binding.root) {
+    private val SHARED_PREF_NAME = "settingsPref"
+    private val KEY_TEMP = "temp"
+
+    val sharedPrefs by lazy {
+        context.getSharedPreferences(
+            SHARED_PREF_NAME, Context.MODE_PRIVATE
+        )
     }
+
+    inner class DailyViewHolder(var binding: DayitemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
-        context=parent.context
-        val inflater:LayoutInflater=parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        binding= DayitemBinding.inflate(inflater,parent,false)
+        context = parent.context
+        val inflater: LayoutInflater =
+            parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        binding = DayitemBinding.inflate(inflater, parent, false)
         return DailyViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
 
-        val currentObj=getItem(position)
-        var day:String= getCurrentDay(currentObj.dt.toInt())
-        holder.binding.day.text=day
-        holder.binding.maxTemp.text=Math.ceil(currentObj.temp.max).toInt().toString()+"°C"
-        holder.binding.minTemp.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
-      //  holder.binding.weatherdesc.text=currentObj.weather[0].description
-    //    holder.binding.dayLowTxt.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
+        val currentObj = getItem(position)
+        var day: String = getCurrentDay(currentObj.dt.toInt())
+        holder.binding.day.text = day
+
+
+        if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
+            holder.binding.maxTemp.text = Math.ceil(currentObj.temp.max).toInt().toString() + "°C"
+            holder.binding.minTemp.text = Math.ceil(currentObj.temp.min).toInt().toString() + "°C"
+
+        } else {
+            holder.binding.maxTemp.text =
+                Math.ceil((currentObj.temp.max) * 1.8 + 32).toInt().toString() + "°F"
+            holder.binding.minTemp.text =
+                Math.ceil((currentObj.temp.min) * 1.8 + 32).toInt().toString() + "°F"
+
+        }
+
+//        holder.binding.maxTemp.text=Math.ceil(currentObj.temp.max).toInt().toString()+"°C"
+//        holder.binding.minTemp.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
+        //  holder.binding.weatherdesc.text=currentObj.weather[0].description
+        //    holder.binding.dayLowTxt.text=Math.ceil(currentObj.temp.min).toInt().toString()+"°C"
         when (currentObj.weather[0].main) {
             "Clouds" -> holder.binding.dayIcon.setImageResource(R.drawable._cloudy)
             "Clear" -> holder.binding.dayIcon.setImageResource(R.drawable._clear)
@@ -57,23 +84,25 @@ class DaysAdapter: ListAdapter<Daily, DaysAdapter.DailyViewHolder>(DaysDiffUtil(
     }
 }
 
-fun getCurrentDay( dt: Int) : String{
-    var date= Date(dt*1000L)
-    var sdf= SimpleDateFormat("d")
-    sdf.timeZone= TimeZone.getDefault()
-    var formatedData=sdf.format(date)
-    var intDay=formatedData.toInt()
-    var calendar= Calendar.getInstance()
-    calendar.set(Calendar.DAY_OF_MONTH,intDay)
-    var format= SimpleDateFormat("EEEE")
+fun getCurrentDay(dt: Int): String {
+    var date = Date(dt * 1000L)
+    var sdf = SimpleDateFormat("d")
+    sdf.timeZone = TimeZone.getDefault()
+    var formatedData = sdf.format(date)
+    var intDay = formatedData.toInt()
+    var calendar = Calendar.getInstance()
+    calendar.set(Calendar.DAY_OF_MONTH, intDay)
+    var format = SimpleDateFormat("EEEE")
     return format.format(calendar.time)
 }
-class DaysDiffUtil:DiffUtil.ItemCallback<Daily>(){
+
+class DaysDiffUtil : DiffUtil.ItemCallback<Daily>() {
     override fun areItemsTheSame(oldItem: Daily, newItem: Daily): Boolean {
-        return oldItem.dt==newItem.dt
+        return oldItem.dt == newItem.dt
     }
-    override fun areContentsTheSame(oldItem: Daily, newItem:Daily): Boolean {
-        return oldItem==newItem
+
+    override fun areContentsTheSame(oldItem: Daily, newItem: Daily): Boolean {
+        return oldItem == newItem
     }
 
 

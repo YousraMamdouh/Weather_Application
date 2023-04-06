@@ -1,5 +1,6 @@
 package com.example.weather.favoritesDetailsFragment.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,7 +42,17 @@ class FavoriteDetailsFragment : Fragment() {
     private lateinit var viewModel: FavoritesDetailsViewModel
     private lateinit var viewModelFactory: FavoritesDetailsViewModelFactory
     lateinit var binding: FragmentFavoriteDetailsBinding
+    private val SHARED_PREF_NAME = "settingsPref"
+    private val KEY_TEMP = "temp"
+    private val KEY_LANG = "language"
+    private val KEY_SPEED = "speed"
+    private val KEY_LOCATION = "location"
 
+    val sharedPrefs by lazy {
+        activity?.getSharedPreferences(
+            SHARED_PREF_NAME, Context.MODE_PRIVATE
+        )
+    }
 
     lateinit var lat: String
     lateinit var lon: String
@@ -128,17 +139,18 @@ class FavoriteDetailsFragment : Fragment() {
     private fun updateUI(current: WeatherModel) {
 
         binding.weatherDescribtion.text = current.current.weather[0].description
-        binding.humidityDesc.text = current.current.humidity.toString()
+        binding.humidityDesc.text = current.current.humidity.toString()+" %"
         //tvVisibility.text=currentWeather.current.visibility.toString()
-        binding.cloudsDesc.text = current.current.clouds.toString()
-        binding.pressureDesc.text = current.current.pressure.toString()
-        binding.windDesc.text = current.current.wind_deg.toString()
-        binding.temp.text = ceil(current.current.temp).toInt().toString() + "°C"
+        binding.cloudsDesc.text = (current.current.clouds).toString()+" %"
+        binding.pressureDesc.text = current.current.pressure.toString()+" "+ activity?.getString(R.string.hPa)
+        //  binding.windDesc.text = current.current.wind_deg.toString()
+        setSpeed(current)
+        setTemperature(current)
         binding.city.text = current.timezone
-        binding.humidityIcon.setImageResource(R.drawable.humidty)
-        binding.pressureIcon.setImageResource(R.drawable.pressure)
+        binding.humidityIcon.setImageResource(R.drawable.humidity_icon)
+        binding.pressureIcon.setImageResource(R.drawable.pressure_icon)
         binding.windIcon.setImageResource(R.drawable.wind)
-        binding.cloudsIcon.setImageResource(R.drawable.clouds)
+        binding.cloudsIcon.setImageResource(R.drawable.cloud_icon)
         daysAdapter.submitList(current.daily)
         daysAdapter.notifyDataSetChanged()
         hoursAdapter.submitList(current.hourly)
@@ -157,5 +169,22 @@ class FavoriteDetailsFragment : Fragment() {
         binding.date.text = formattedDate
     }
 
+    private fun setTemperature(current: WeatherModel) {
+        if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
+            println("equal metric f3ln")
+            binding.temp.text = (current.current.temp).toInt().toString() + "°C"
+        } else {
+            println("la msh add keda")
 
+            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt().toString() + "°F"
+        }
+    }
+    private fun setSpeed(current: WeatherModel)
+    {
+        if ((sharedPrefs?.getString(KEY_SPEED, null).toString()).equals("miles")) {
+            binding.windDesc.text = ((current.current.wind_deg).toFloat()/ 3600 ).toString()+" "+activity?.getString(R.string.miles_hour)
+        } else {
+            binding.windDesc.text = current.current.wind_deg.toString()+" "+activity?.getString(R.string.meter_sec)
+        }
+    }
 }
