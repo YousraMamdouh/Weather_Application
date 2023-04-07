@@ -10,19 +10,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
 import com.example.weather.R
 import com.example.weather.databinding.AlertDialogueBinding
 import com.example.weather.databinding.CustomDialogueBinding
 import com.example.weather.databinding.FragmentAlertsBinding
 import com.example.weather.databinding.FragmentFavoritesBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 
 class AlertsFragment : Fragment() {
     lateinit var dialogueBinding: AlertDialogueBinding
-    lateinit var binding: FragmentAlertsBinding
     lateinit var dialog: Dialog
+    lateinit var text: TextView
+    lateinit var myView: View
+    lateinit var addAlertButton:FloatingActionButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,33 +43,52 @@ class AlertsFragment : Fragment() {
         var startTime = Calendar.getInstance().timeInMillis
         // Inflate the layout for this fragment
 
-        binding = FragmentAlertsBinding.inflate(inflater, container, false)
+        myView = inflater.inflate(R.layout.fragment_alerts, container, false)
 
-   //dialogueBinding = AlertDialogueBinding.inflate(inflater, container, false)
-        binding.aletrFloatingButton.setOnClickListener {
-            dialogueBinding = AlertDialogueBinding.inflate(inflater, container, false)
 
-            showDialogue()
+     //   dialogueBinding = AlertDialogueBinding.inflate(inflater, container, false)
+        addAlertButton=myView.findViewById(R.id.aletrFloatingButton)
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.alert_dialogue)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(false)
+        addAlertButton.setOnClickListener {
+
+dialog.show()
         }
-        dialogueBinding.cancelButton.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialogueBinding.startDateCard.setOnClickListener {
+        val saveButton = dialog.findViewById<Button>(R.id.saveButton)
+        val cancelButton = dialog.findViewById<Button>(R.id.cancelButton)
+        val startDateCard = dialog.findViewById<CardView>(R.id.startDateCard)
+        val endDateCard = dialog.findViewById<CardView>(R.id.endDateCard)
+        val startDateView = dialog.findViewById<TextView>(R.id.startDate)
+        val endDateView = dialog.findViewById<TextView>(R.id.endDate)
+        val startTimeView= dialog.findViewById<TextView>(R.id.startTime)
+        val endTimeView= dialog.findViewById<TextView>(R.id.endTime)
+
+
+//        dialogueBinding.cancelButton.setOnClickListener {
+//            dialog.dismiss()
+//        }
+  startDateCard.setOnClickListener {
+
             println("dosty 3lya le")
-            setAlarm(startTime) { currentTime ->
-                startTime = currentTime
-            //    dialogueBinding.startDate.setDate(currentTime)
-                //dialogueBinding.startTime.setTime(currentTime)
-            }
-        }
-        dialogueBinding.endDateCard.setOnClickListener {
             setAlarm(startTime) { currentTime ->
                 startTime = currentTime
                 //    dialogueBinding.startDate.setDate(currentTime)
                 //dialogueBinding.startTime.setTime(currentTime)
             }
         }
-        return binding.root
+endDateCard.setOnClickListener {
+            setAlarm(startTime) { currentTime ->
+                startTime = currentTime
+                //    dialogueBinding.startDate.setDate(currentTime)
+                //dialogueBinding.startTime.setTime(currentTime)
+            }
+        }
+        return myView
     }
 
 
@@ -76,6 +101,7 @@ class AlertsFragment : Fragment() {
         )
         dialog.setCancelable(false)
         dialog.show()
+
     }
 
     private fun setAlarm(minTime: Long, callback: (Long) -> Unit) {

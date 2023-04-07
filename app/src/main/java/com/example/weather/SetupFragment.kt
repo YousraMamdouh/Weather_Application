@@ -59,7 +59,7 @@ var alreadyExcuted=false
         println("gowa el on create ")
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        dialogueBinding = CustomDialogueBinding.inflate(inflater, container, false)
+     //   dialogueBinding = CustomDialogueBinding.inflate(inflater, container, false)
 
 
         // Inflate the layout for this fragment
