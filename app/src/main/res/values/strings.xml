@@ -27,4 +27,10 @@
     <string name="Arabic">Arabic</string>
     <string name="miles_hour">mph</string>
     <string name="meter_sec">m/s</string>
+    <string name="set_alert">Set Alert</string>
+    <string name="alarm">Alarm</string>
+    <string name="notification">Notification</string>
+    <string name="save">Save</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>
