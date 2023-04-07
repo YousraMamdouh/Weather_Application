@@ -2,12 +2,14 @@ package com.example.weather.homefragment.view
 
 
 import android.content.Context
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +33,7 @@ import java.util.*
 
 
 class HomePageFragment : Fragment() {
-val TAG="mysettings"
+    val TAG = "mysettings"
     val args: HomePageFragmentArgs by navArgs()
     lateinit var binding: FragmentHomePageBinding
 
@@ -53,32 +55,35 @@ val TAG="mysettings"
     }
     lateinit var lat: String
     lateinit var lon: String
-    private var lang = "ar"
+   private var lang: String=""
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
     private val unit = "metric"
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
+            lang = "ar"
+
+        } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
+            lang = "en"
+
+        }
         lon = args.lon
         lat = args.lan
         daysAdapter = DaysAdapter()
         hoursAdapter = HourlyAdapter()
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
+        setLanguage(lang)
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
-//        sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
-//        sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
-//        sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
-//        println("ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
-    //    Log.i(TAG,"ana fl home ahoh:${sharedPrefs?.getString(KEY_TEMP, "null").toString()}")
+
+
 
     }
 
@@ -189,11 +194,12 @@ val TAG="mysettings"
     private fun updateUI(current: WeatherModel) {
 
         binding.weatherDescribtion.text = current.current.weather[0].description
-        binding.humidityDesc.text = current.current.humidity.toString()+" %"
+        binding.humidityDesc.text = current.current.humidity.toString() + " %"
         //tvVisibility.text=currentWeather.current.visibility.toString()
-        binding.cloudsDesc.text = (current.current.clouds).toString()+" %"
-        binding.pressureDesc.text = current.current.pressure.toString()+" "+ activity?.getString(R.string.hPa)
-      //  binding.windDesc.text = current.current.wind_deg.toString()
+        binding.cloudsDesc.text = (current.current.clouds).toString() + " %"
+        binding.pressureDesc.text =
+            current.current.pressure.toString() + " " + activity?.getString(R.string.hPa)
+        //  binding.windDesc.text = current.current.wind_deg.toString()
         setSpeed(current)
         setTemperature(current)
         binding.city.text = current.timezone
@@ -212,19 +218,25 @@ val TAG="mysettings"
     private fun setTemperature(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
             println("equal metric f3ln")
-            binding.temp.text = (current.current.temp).toInt().toString() + "°C"
+            binding.temp.text = (current.current.temp).toInt()
+                .toString() + " " + activity?.getString(R.string.celsius)
         } else {
             println("la msh add keda")
 
-            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt().toString() + "°F"
+            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt()
+                .toString() + " " + activity?.getString(R.string.fahrenheit)
         }
     }
-    private fun setSpeed(current: WeatherModel)
-    {
+
+    private fun setSpeed(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_SPEED, null).toString()).equals("miles")) {
-            binding.windDesc.text = ((current.current.wind_deg).toFloat()/ 3600 ).toString()+" "+activity?.getString(R.string.miles_hour)
+            binding.windDesc.text =
+                ((current.current.wind_deg).toFloat() / 3600).toString() + " " + activity?.getString(
+                    R.string.miles_hour
+                )
         } else {
-            binding.windDesc.text = current.current.wind_deg.toString()+" "+activity?.getString(R.string.meter_sec)
+            binding.windDesc.text =
+                current.current.wind_deg.toString() + " " + activity?.getString(R.string.meter_sec)
         }
     }
 
@@ -235,6 +247,19 @@ val TAG="mysettings"
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         val formattedDate: String = df.format(c)
         binding.date.text = formattedDate
+    }
+
+    private fun setLanguage(language: String) {
+
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val resources = context?.resources
+        val configuration = Configuration()
+        configuration.setLocale(locale)
+        resources?.updateConfiguration(configuration, resources.displayMetrics)
+        ViewCompat.setLayoutDirection(requireActivity().window.decorView, if (language == "ar") ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
+        //activity?.recreate()
+
     }
 
 

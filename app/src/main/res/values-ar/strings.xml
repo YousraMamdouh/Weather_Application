@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الطقس</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="humidity">الرطوبة</string>
+    <string name="pressure">الضغط</string>
+    <string name="wind">الرياح</string>
+    <string name="clouds">السحب</string>
+    <string name="go_to_location_settings_dialog_title">Request to open location ٍsettings</string>
+    <string name="go_to_location_settings_dialog_msg">please allow go to ٍsettings and open location </string>
+    <string name="initialSetup">إعدادات أولية</string>
+    <string name="pleaseSelectLocationOption">يرجى تحديد خيار للكشف عن الموقع</string>
+    <string name="gps">جي بي اس</string>
+    <string name="map">الخريطة</string>
+    <string name="cancel">إغلاق</string>
+    <string name="ok">تأكيد</string>
+    <string name="hPa">هـ.ب</string>
+    <string name="confirmLocation">تأكيد الموقع</string>
+    <string name="tempreature">درجة الحرارة</string>
+    <string name="speed">السرعة</string>
+    <string name="language">اللغة</string>
+    <string name="location">الموقع</string>
+    <string name="celsius"> °م  </string>
+    <string name="fahrenheit">°ف</string>
+    <string name="maps">الخريطة</string>
+    <string name="English">الإنجليزية</string>
+    <string name="Arabic">العربية</string>
+    <string name="miles_hour">ميل/س </string>
+    <string name="meter_sec">م/ث</string>
+
+</resources>

@@ -43,11 +43,11 @@ class HourlyAdapter : ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HoursD
         var time:String= getCurrentTime(currentObj.dt.toInt())
         holder.binding.hour.text=time
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
-            holder.binding.weather.text=Math.ceil(currentObj.temp).toInt().toString()+"°C"
+            holder.binding.weather.text=Math.ceil(currentObj.temp).toInt().toString()+ " "+context.getString(R.string.celsius)
 
         } else {
 
-            holder.binding.weather.text=Math.ceil((currentObj.temp) * 1.8 + 32).toInt().toString()+"°F"
+            holder.binding.weather.text=Math.ceil((currentObj.temp) * 1.8 + 32).toInt().toString()+" "+context.getString(R.string.fahrenheit)
 
         }
 

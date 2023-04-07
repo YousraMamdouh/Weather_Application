@@ -47,14 +47,14 @@ class DaysAdapter : ListAdapter<Daily, DaysAdapter.DailyViewHolder>(DaysDiffUtil
 
 
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
-            holder.binding.maxTemp.text = Math.ceil(currentObj.temp.max).toInt().toString() + "°C"
-            holder.binding.minTemp.text = Math.ceil(currentObj.temp.min).toInt().toString() + "°C"
+            holder.binding.maxTemp.text = Math.ceil(currentObj.temp.max).toInt().toString() +" "+ context.getString(R.string.celsius)
+            holder.binding.minTemp.text = Math.ceil(currentObj.temp.min).toInt().toString() +" "+ context.getString(R.string.celsius)
 
         } else {
             holder.binding.maxTemp.text =
-                Math.ceil((currentObj.temp.max) * 1.8 + 32).toInt().toString() + "°F"
+                Math.ceil((currentObj.temp.max) * 1.8 + 32).toInt().toString() +" "+ context.getString(R.string.fahrenheit)
             holder.binding.minTemp.text =
-                Math.ceil((currentObj.temp.min) * 1.8 + 32).toInt().toString() + "°F"
+                Math.ceil((currentObj.temp.min) * 1.8 + 32).toInt().toString() + " "+context.getString(R.string.fahrenheit)
 
         }
 

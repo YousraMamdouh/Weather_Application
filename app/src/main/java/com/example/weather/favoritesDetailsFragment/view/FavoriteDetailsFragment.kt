@@ -56,22 +56,32 @@ class FavoriteDetailsFragment : Fragment() {
 
     lateinit var lat: String
     lateinit var lon: String
-    private var lang = "en"
+    private var lang = "en";
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
-    private val unit= "metric"
-
+    private val unit = "metric"
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        lon =args.longitude
+        lon = args.longitude
         lat = args.latitude
         daysAdapter = DaysAdapter()
         hoursAdapter = HourlyAdapter()
         binding = FragmentFavoriteDetailsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
+            lang = "en"
+
+        } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
+            lang = "en"
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +112,7 @@ class FavoriteDetailsFragment : Fragment() {
         ).get(FavoritesDetailsViewModel::class.java)
 
         MainScope().launch(Dispatchers.IO) {
-            viewModel.getCurrentWeather(lat, lon, lang, apiKey,unit)
+            viewModel.getCurrentWeather(lat, lon, lang, apiKey, unit)
         }
 
         //Update home details from internet object
@@ -139,10 +149,11 @@ class FavoriteDetailsFragment : Fragment() {
     private fun updateUI(current: WeatherModel) {
 
         binding.weatherDescribtion.text = current.current.weather[0].description
-        binding.humidityDesc.text = current.current.humidity.toString()+" %"
+        binding.humidityDesc.text = current.current.humidity.toString() + " %"
         //tvVisibility.text=currentWeather.current.visibility.toString()
-        binding.cloudsDesc.text = (current.current.clouds).toString()+" %"
-        binding.pressureDesc.text = current.current.pressure.toString()+" "+ activity?.getString(R.string.hPa)
+        binding.cloudsDesc.text = (current.current.clouds).toString() + " %"
+        binding.pressureDesc.text =
+            current.current.pressure.toString() + " " + activity?.getString(R.string.hPa)
         //  binding.windDesc.text = current.current.wind_deg.toString()
         setSpeed(current)
         setTemperature(current)
@@ -172,19 +183,25 @@ class FavoriteDetailsFragment : Fragment() {
     private fun setTemperature(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
             println("equal metric f3ln")
-            binding.temp.text = (current.current.temp).toInt().toString() + "°C"
+            binding.temp.text = (current.current.temp).toInt()
+                .toString() + " " + activity?.getString(R.string.celsius)
         } else {
             println("la msh add keda")
 
-            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt().toString() + "°F"
+            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt()
+                .toString() + " " + activity?.getString(R.string.fahrenheit)
         }
     }
-    private fun setSpeed(current: WeatherModel)
-    {
+
+    private fun setSpeed(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_SPEED, null).toString()).equals("miles")) {
-            binding.windDesc.text = ((current.current.wind_deg).toFloat()/ 3600 ).toString()+" "+activity?.getString(R.string.miles_hour)
+            binding.windDesc.text =
+                ((current.current.wind_deg).toFloat() / 3600).toString() + " " + activity?.getString(
+                    R.string.miles_hour
+                )
         } else {
-            binding.windDesc.text = current.current.wind_deg.toString()+" "+activity?.getString(R.string.meter_sec)
+            binding.windDesc.text =
+                current.current.wind_deg.toString() + " " + activity?.getString(R.string.meter_sec)
         }
     }
 }
