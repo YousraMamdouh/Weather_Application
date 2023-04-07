@@ -24,6 +24,7 @@ import com.example.weather.homefragment.viewmodel.CurrentWeatherViewModel
 import com.example.weather.model.Repository
 import com.example.weather.model.WeatherModel
 import com.example.weather.network.WeatherClient
+import com.example.weather.utilities.LocaleHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -64,11 +65,18 @@ class HomePageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+
+        println("eli m3aya fl home l03't:${sharedPrefs?.getString(KEY_LANG, "null").toString()}")
         if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
             lang = "ar"
 
+         //   messageView.setText(resources.getString(R.string.language));
+
         } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
             lang = "en"
+//            LocaleHelper.setLocale(requireContext(), "en");
+//            context?.getResources();
+
 
         }
         lon = args.lon
@@ -76,7 +84,7 @@ class HomePageFragment : Fragment() {
         daysAdapter = DaysAdapter()
         hoursAdapter = HourlyAdapter()
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
-        setLanguage(lang)
+
         return binding.root
     }
 
@@ -249,18 +257,18 @@ class HomePageFragment : Fragment() {
         binding.date.text = formattedDate
     }
 
-    private fun setLanguage(language: String) {
-
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val resources = context?.resources
-        val configuration = Configuration()
-        configuration.setLocale(locale)
-        resources?.updateConfiguration(configuration, resources.displayMetrics)
-        ViewCompat.setLayoutDirection(requireActivity().window.decorView, if (language == "ar") ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
-        //activity?.recreate()
-
-    }
+//    private fun setLanguage(language: String) {
+//
+//        val locale = Locale(language)
+//        Locale.setDefault(locale)
+//        val resources = context?.resources
+//        val configuration = Configuration()
+//        configuration.setLocale(locale)
+//        resources?.updateConfiguration(configuration, resources.displayMetrics)
+//        ViewCompat.setLayoutDirection(requireActivity().window.decorView, if (language == "ar") ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
+//        //activity?.recreate()
+//
+//    }
 
 
 }
