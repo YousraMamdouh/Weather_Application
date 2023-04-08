@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.weather.model.RepositoryInterface
 import com.example.weather.model.Weather
 import com.example.weather.model.WeatherModel
+import com.example.weather.network.ApiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -27,7 +29,13 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
             println("raye7 agebo w el lon:" + lon)
             val weather = iRepo.getCurrentLocationWeather(lat, lon, lang, apiKey,unit)
             withContext(Dispatchers.Main) {
-                currentLocationWeather.postValue(weather)
+               // currentLocationWeather.postValue(weather)
+         weather.collect{
+             currentLocationWeather.postValue(it)
+
+         }
+                 //   currentLocationWeather.value=ApiState.Failure(it)
+
             }
         }
 

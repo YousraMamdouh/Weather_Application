@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
+import kotlinx.coroutines.flow.Flow
 
 
 class ConcreteLocalSource(
@@ -28,7 +29,7 @@ class ConcreteLocalSource(
         dao.insertCurrentWeatherObject(weatherObject)
     }
 
-    override suspend fun getAllStoredFavorites(): List<FavoriteModel> {
+    override suspend fun getAllStoredFavorites(): Flow<List<FavoriteModel>> {
       return dao.getAllFavorites()
     }
 

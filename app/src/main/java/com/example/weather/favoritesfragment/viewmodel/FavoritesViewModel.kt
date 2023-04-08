@@ -24,7 +24,10 @@ class FavoritesViewModel(repo: RepositoryInterface) : ViewModel() {
 
     private fun getLocalFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
-            _favorites.postValue(iRepo.getStoredFavorites())
+            iRepo.getStoredFavorites()?.collect{
+                _favorites.postValue(it)
+            }
+         //   _favorites.postValue(iRepo.getStoredFavorites())
         }
     }
 

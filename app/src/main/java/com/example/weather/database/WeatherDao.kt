@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WeatherDao {
@@ -16,7 +17,7 @@ interface WeatherDao {
 
     //favorites
     @Query("SELECT * FROM favorites")
-    fun getAllFavorites() : List<FavoriteModel>
+    fun getAllFavorites() : Flow<List<FavoriteModel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertToFavorites(favoriteModel: FavoriteModel)

@@ -1,9 +1,10 @@
 package com.example.weather.model
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 interface RepositoryInterface {
-    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String):WeatherModel
+    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String):Flow<WeatherModel>
     suspend fun getStoredCurrentWeatherObjectFromDatabase():WeatherModel
 
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
@@ -18,7 +19,7 @@ interface RepositoryInterface {
     //fav
 
 
-    suspend fun getStoredFavorites():List<FavoriteModel>?
+    suspend fun getStoredFavorites(): Flow<List<FavoriteModel>>?
   suspend  fun insertToFavorites(favInfo: FavoriteModel)
    suspend fun deleteFromFavorites(favInfo: FavoriteModel)
 

@@ -56,7 +56,7 @@ class HomePageFragment : Fragment() {
     }
     lateinit var lat: String
     lateinit var lon: String
-   private var lang: String=""
+    private var lang: String = ""
     private val apiKey = "bbcb13e1d448621ffd8e565701972f6d"
     private val unit = "metric"
 
@@ -70,7 +70,7 @@ class HomePageFragment : Fragment() {
         if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
             lang = "ar"
 
-         //   messageView.setText(resources.getString(R.string.language));
+            //   messageView.setText(resources.getString(R.string.language));
 
         } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
             lang = "en"
@@ -90,7 +90,6 @@ class HomePageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
 
     }

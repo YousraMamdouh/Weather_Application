@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import com.example.mvvn.network.RemoteSource
 import com.example.weather.database.LocalSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 
 class Repository private constructor(var remoteSource: RemoteSource,
@@ -24,12 +26,13 @@ class Repository private constructor(var remoteSource: RemoteSource,
             )
         }
     }
-    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): WeatherModel
+    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): Flow<WeatherModel>
     {
         //println("da5alt el repo")
-        val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)
-        println("bosy da eli wasali delwa2ty:"+currentWeather.current.weather.get(0).id)
-        return currentWeather
+       // val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)
+      //  println("bosy da eli wasali delwa2ty:"+currentWeather.current.weather.get(0).id)
+       // return currentWeather
+        return flow { emit((remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit))) }
     }
 
     override suspend fun getStoredCurrentWeatherObjectFromDatabase(): WeatherModel {
@@ -42,7 +45,7 @@ class Repository private constructor(var remoteSource: RemoteSource,
     localSource.insertCurrentWeatherObject(weatherObject)
     }
 
-    override suspend fun getStoredFavorites(): List<FavoriteModel>? {
+    override suspend fun getStoredFavorites(): Flow<List<FavoriteModel>>? {
     return localSource.getAllStoredFavorites()
     }
 
