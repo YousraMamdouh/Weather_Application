@@ -5,12 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.model.RepositoryInterface
-import com.example.weather.model.Weather
 import com.example.weather.model.WeatherModel
-import com.example.weather.network.ApiState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -31,7 +27,7 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
             withContext(Dispatchers.Main) {
                // currentLocationWeather.postValue(weather)
          weather.collect{
-             currentLocationWeather.postValue(it)
+             currentLocationWeather.postValue(it.body())
 
          }
                  //   currentLocationWeather.value=ApiState.Failure(it)

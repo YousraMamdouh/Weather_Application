@@ -11,6 +11,6 @@ interface ApiService {
         @Query("lang") lang: String,
         @Query("appid") appid: String?,
         @Query("units") unit: String,
-    ): WeatherModel
+    ): Response<WeatherModel>
 
 }

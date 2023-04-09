@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.weather.model.FavoriteModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
@@ -45,7 +46,9 @@ class LocalSourceTest {
             ApplicationProvider.getApplicationContext(),
             WeatherDatabase::class.java
         ).allowMainThreadQueries().build()
-       localSource = ConcreteLocalSource(ApplicationProvider.getApplicationContext())
+     //   tasksLocalDataSource = TasksLocalDataSource(database.taskDao(), Dispatchers.Main)
+
+        localSource = ConcreteLocalSource(ApplicationProvider.getApplicationContext())
     }
 
     @After

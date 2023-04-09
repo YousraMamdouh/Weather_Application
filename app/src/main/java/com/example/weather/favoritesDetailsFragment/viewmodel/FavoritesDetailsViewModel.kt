@@ -29,7 +29,7 @@ class FavoritesDetailsViewModel(repo: RepositoryInterface) : ViewModel() {
           withContext(Dispatchers.Main) {
               // currentLocationWeather.postValue(weather)
               weather.collect{
-                  currentLocationWeather.postValue(it)
+                  currentLocationWeather.postValue(it.body())
 
               }
               //   currentLocationWeather.value=ApiState.Failure(it)

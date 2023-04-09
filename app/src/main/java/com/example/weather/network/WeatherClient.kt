@@ -3,6 +3,7 @@ package com.example.weather.network
 import ApiService
 import com.example.mvvn.network.RemoteSource
 import com.example.weather.model.WeatherModel
+import retrofit2.Response
 
 
 class WeatherClient private constructor(): RemoteSource {
@@ -30,7 +31,7 @@ class WeatherClient private constructor(): RemoteSource {
         lang: String,
         id: String,
         unit:String
-    ): WeatherModel {
+    ): Response<WeatherModel> {
         val response=weatherService.getCurrentWeather(lat,lon,lang,id,unit)
         return response
     }

@@ -1,10 +1,11 @@
 package com.example.mvvn.network
 
 import com.example.weather.model.WeatherModel
+import retrofit2.Response
 
 
 interface RemoteSource {
   //  suspend fun getProductsOverNetwork():List<Products>
-  suspend fun getCurrentWeather(lat:String,lon:String,lang:String,id:String,unit:String): WeatherModel
+  suspend fun getCurrentWeather(lat:String,lon:String,lang:String,id:String,unit:String): Response<WeatherModel>
 
 }

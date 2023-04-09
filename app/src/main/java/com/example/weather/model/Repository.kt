@@ -8,12 +8,13 @@ import com.example.mvvn.network.RemoteSource
 import com.example.weather.database.LocalSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
 
 class Repository private constructor(var remoteSource: RemoteSource,
                                      var localSource: LocalSource,
                                      var context: Context)
-    : RepositoryInterface {
+    : RepositoryInterface, RepoOperation {
     companion object {
         private var instance: Repository? = null
         fun getInstance(
@@ -26,7 +27,7 @@ class Repository private constructor(var remoteSource: RemoteSource,
             )
         }
     }
-    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): Flow<WeatherModel>
+    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): Flow<Response<WeatherModel>>
     {
         //println("da5alt el repo")
        // val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)

@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import com.example.weather.databinding.CustomDialogueBinding
+
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 
