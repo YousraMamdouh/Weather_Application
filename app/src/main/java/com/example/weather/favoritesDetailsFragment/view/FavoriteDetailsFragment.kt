@@ -126,7 +126,7 @@ class FavoriteDetailsFragment : Fragment() {
 
     private fun selectAppropriateIcon(current: WeatherModel) {
 
-        when (current.current.weather[0].main) {
+        when (current.current?.weather?.get(0)?.main) {
             "Clouds" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy)
             "Clear" -> binding.weatherIcon.setImageResource(R.drawable._sun)
             "Thunderstorm" -> binding.weatherIcon.setImageResource(R.drawable._current_cloudy_storm)
@@ -148,12 +148,12 @@ class FavoriteDetailsFragment : Fragment() {
 
     private fun updateUI(current: WeatherModel) {
 
-        binding.weatherDescribtion.text = current.current.weather[0].description
-        binding.humidityDesc.text = current.current.humidity.toString() + " %"
+        binding.weatherDescribtion.text = current?.current?.weather?.get(0)?.description
+        binding.humidityDesc.text = current.current?.humidity.toString() + " %"
         //tvVisibility.text=currentWeather.current.visibility.toString()
-        binding.cloudsDesc.text = (current.current.clouds).toString() + " %"
+        binding.cloudsDesc.text = (current.current?.clouds).toString() + " %"
         binding.pressureDesc.text =
-            current.current.pressure.toString() + " " + activity?.getString(R.string.hPa)
+            current.current?.pressure.toString() + " " + activity?.getString(R.string.hPa)
         //  binding.windDesc.text = current.current.wind_deg.toString()
         setSpeed(current)
         setTemperature(current)
@@ -183,12 +183,12 @@ class FavoriteDetailsFragment : Fragment() {
     private fun setTemperature(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_TEMP, null).toString()).equals("metric")) {
             println("equal metric f3ln")
-            binding.temp.text = (current.current.temp).toInt()
+            binding.temp.text = (current.current?.temp)?.toInt()
                 .toString() + " " + activity?.getString(R.string.celsius)
         } else {
             println("la msh add keda")
 
-            binding.temp.text = ((current.current.temp) * 1.8 + 32).toInt()
+            binding.temp.text = ((current.current?.temp)!! * 1.8 + 32).toInt()
                 .toString() + " " + activity?.getString(R.string.fahrenheit)
         }
     }
@@ -196,12 +196,12 @@ class FavoriteDetailsFragment : Fragment() {
     private fun setSpeed(current: WeatherModel) {
         if ((sharedPrefs?.getString(KEY_SPEED, null).toString()).equals("miles")) {
             binding.windDesc.text =
-                ((current.current.wind_deg).toFloat() / 3600).toString() + " " + activity?.getString(
+                ((current.current?.wind_deg)!!.toFloat() / 3600).toString() + " " + activity?.getString(
                     R.string.miles_hour
                 )
         } else {
             binding.windDesc.text =
-                current.current.wind_deg.toString() + " " + activity?.getString(R.string.meter_sec)
+                current.current?.wind_deg.toString() + " " + activity?.getString(R.string.meter_sec)
         }
     }
 }

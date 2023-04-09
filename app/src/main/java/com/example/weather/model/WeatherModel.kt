@@ -9,14 +9,14 @@ import com.example.weather.database.Converters
 @TypeConverters(Converters::class)
 data class WeatherModel(
 
-    val current: Current,
-    val daily: List<Daily>,
-    val hourly: List<Hourly>,
+    val current: Current?=null,
+    val daily: List<Daily>?=null,
+    val hourly: List<Hourly>?=null,
     @PrimaryKey
-    val lat: Double,
-    val lon: Double,
+    val lat: Double=2.2,
+    val lon: Double?=null,
 //    val minutely: List<Minutely>,
-    val timezone: String,
-    val timezone_offset: Int,
+    val timezone: String?=null,
+    val timezone_offset: Int?=null,
 //    var alerts:List<Alerts>
 )

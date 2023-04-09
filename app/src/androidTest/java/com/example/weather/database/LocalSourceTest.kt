@@ -11,7 +11,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert
 import org.hamcrest.collection.IsEmptyCollection
 import org.hamcrest.core.Is
@@ -28,8 +27,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class LocalSourceTest {
-
-
 
 
 
@@ -65,7 +62,7 @@ class LocalSourceTest {
 //    }
 
     @Test
-    fun insertToFavorites_InsertObjectInDataBase_returnProcessIsSuccessful()=runBlockingTest {
+    fun insertToFavorites_InsertObjectInDataBase_returnProcessIsSuccessful()=runBlocking {
         //Given
         val country = FavoriteModel("Egypt", 1.1, 2.2)
 
@@ -77,12 +74,12 @@ class LocalSourceTest {
         //Then
         val results = localSource.getAllStoredFavorites().first()
 
-        MatcherAssert.assertThat(results.get(0).locality, Is.`is`("Egypt"))
+        MatcherAssert.assertThat(results.get(0).locality, Is.`is`(country.locality))
         MatcherAssert.assertThat(results.get(0).locality, IsNull.notNullValue())
     }
 
     @Test
-    fun deleteFromFavorites_removeObjectFromDataBase_returnProcessIsSuccessful()= runBlockingTest {
+    fun deleteFromFavorites_removeObjectFromDataBase_returnProcessIsSuccessful()= runBlocking {
 
         //Given
         val country = FavoriteModel("Egypt", 1.1, 2.2)

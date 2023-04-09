@@ -10,7 +10,8 @@ import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
+
 import org.hamcrest.MatcherAssert
 import org.hamcrest.collection.IsEmptyCollection
 import org.hamcrest.core.Is
@@ -66,7 +67,7 @@ class WeatherDaoTest {
 //    }
 
     @Test
-    fun getAllFavorites_retrieveListOfFavorites_ListReturnedIsAsInserted() = runBlockingTest {
+    fun getAllFavorites_retrieveListOfFavorites_ListReturnedIsAsInserted() = runBlocking {
 
         //Given
         val country_1 = FavoriteModel("Egypt", 1.1, 2.2)
@@ -85,7 +86,7 @@ class WeatherDaoTest {
     }
 
     @Test
-    fun insertToFavorites_InsertObjectInDataBase_returnProcessIsSuccessful()= runBlockingTest {
+    fun insertToFavorites_InsertObjectInDataBase_returnProcessIsSuccessful()= runBlocking {
 
         //Given
         val country = FavoriteModel("Egypt", 1.1, 2.2)
@@ -105,7 +106,7 @@ class WeatherDaoTest {
     }
 
     @Test
-    fun deleteFromFavorites_removeObjectFromDataBase_returnProcessIsSuccessful()=runBlockingTest {
+    fun deleteFromFavorites_removeObjectFromDataBase_returnProcessIsSuccessful()=runBlocking{
         //Given
         val country = FavoriteModel("Egypt", 1.1, 2.2)
         dao.insertToFavorites(country)

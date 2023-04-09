@@ -4,24 +4,31 @@ import android.content.Context
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
+import androidx.room.Room
 import com.example.mvvn.network.RemoteSource
 import com.example.weather.database.LocalSource
+import com.example.weather.database.WeatherDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
 
-class Repository private constructor(var remoteSource: RemoteSource,
-                                     var localSource: LocalSource,
-                                     var context: Context)
-    : RepositoryInterface, RepoOperation {
+class Repository (private var remoteSource: RemoteSource,
+                                    private var localSource: LocalSource,
+                                   private  var context: Context)
+    : RepositoryInterface{
     companion object {
+        @Volatile
         private var instance: Repository? = null
         fun getInstance(
             remoteSource: RemoteSource,
             localSource: LocalSource,
             context: Context
         ): Repository {
+
+//            val database = Room.databaseBuilder(context,
+//                WeatherDatabase::class.java, "Tasks.db")
+//                .build()
             return instance ?: Repository(
                 remoteSource,localSource ,context
             )
