@@ -1,11 +1,13 @@
 package com.example.weather.homefragment.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.model.RepositoryInterface
 import com.example.weather.model.WeatherModel
+import com.example.weather.network.ApiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -13,6 +15,7 @@ import kotlinx.coroutines.withContext
 class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
    // private lateinit var weather: WeatherModel
     private val iRepo: RepositoryInterface = repo
+
     private val currentLocationWeather = MutableLiveData<WeatherModel>()
     private val currentLocationWeatherFromDatabase=MutableLiveData<WeatherModel>()
 
@@ -28,6 +31,25 @@ class CurrentWeatherViewModel(repo: RepositoryInterface) : ViewModel() {
                // currentLocationWeather.postValue(weather)
          weather.collect{
              currentLocationWeather.postValue(it.body())
+//
+//             when(it){
+//                 is ApiState.Loading ->{
+//
+////                     pd.setMessage("loading")
+////                     pd.show()
+//                     println("loading")
+//
+//
+//                 }
+//                 is ApiState.Success->{
+//                     currentLocationWeather.postValue(it.body())
+//                 }
+//                 else->{
+//
+//                     println("failed")
+//                 }
+//             }
+
 
          }
                  //   currentLocationWeather.value=ApiState.Failure(it)

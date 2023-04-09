@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import com.example.weather.SetupFragmentDirections
 import com.example.weather.databinding.CustomDialogueBinding
+import com.example.weather.utilities.Utilities
 
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
@@ -80,7 +81,15 @@ var alreadyExcuted=false
         val cancel = dialog.findViewById<Button>(R.id.cancelButton)
         val gpsButton = dialog.findViewById<RadioButton>(R.id.gpsRadioButton)
         val mapsButton = dialog.findViewById<RadioButton>(R.id.mapsRadioButton)
-        dialog.show()
+        if(!Utilities.isConnectedToInternet(context))
+        {
+
+            navigateToHome()
+        }
+        else{
+            dialog.show()
+        }
+
         gpsButton.setOnClickListener {
 
             if (mapsButton.isChecked) {

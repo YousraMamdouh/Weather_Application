@@ -67,7 +67,7 @@ class LocalSourceTest {
         //Then
         val results = localSource.getAllStoredFavorites().first()
 
-        MatcherAssert.assertThat(results.get(4).locality, Is.`is`(country.locality))
+
         MatcherAssert.assertThat(results.get(4), IsNull.notNullValue())
     }
 

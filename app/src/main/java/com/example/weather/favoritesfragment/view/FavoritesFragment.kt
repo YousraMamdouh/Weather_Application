@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -19,6 +20,7 @@ import com.example.weather.favoritesfragment.viewmodel.FavoritesViewModelFactory
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.Repository
 import com.example.weather.network.WeatherClient
+import com.example.weather.utilities.Utilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -100,7 +102,13 @@ binding = FragmentFavoritesBinding.inflate(inflater, container, false)
             favoritesAdapter.notifyDataSetChanged()
         }
         binding.addFavoriteButton.setOnClickListener {
-            navigateToMap()
+            if(Utilities.isConnectedToInternet(context)) {
+                navigateToMap()
+            }
+            else
+            {
+                Toast.makeText(context, "Check your internet ",Toast.LENGTH_LONG ).show()
+            }
         }
     }
 

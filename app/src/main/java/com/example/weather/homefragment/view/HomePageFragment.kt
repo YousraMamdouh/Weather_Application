@@ -25,6 +25,7 @@ import com.example.weather.model.Repository
 import com.example.weather.model.WeatherModel
 import com.example.weather.network.WeatherClient
 import com.example.weather.utilities.LocaleHelper
+import com.example.weather.utilities.Utilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -90,6 +91,10 @@ class HomePageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        sharedPrefs?.edit()?.putString(KEY_LOCATION, "gps")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_SPEED, "miles")?.apply()
+//        sharedPrefs?.edit()?.putString(KEY_TEMP, "metric")?.apply()
 
 
     }
@@ -128,11 +133,11 @@ class HomePageFragment : Fragment() {
         ).get(CurrentWeatherViewModel::class.java)
 
         //network check
-        val connectionManager: ConnectivityManager =
-            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if (isConnected) {
+//        val connectionManager: ConnectivityManager =
+//            activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
+//        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if (Utilities.isConnectedToInternet(context)) {
             println("fe net ya basha")
             MainScope().launch(Dispatchers.IO) {
                 currentViewModel.getCurrentWeather(lat, lon, lang, apiKey, unit)
