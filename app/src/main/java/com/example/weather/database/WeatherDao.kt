@@ -12,7 +12,7 @@ interface WeatherDao {
     @Query("SELECT * FROM weather")
    fun getStoredCurrentWeather():WeatherModel
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 
     //favorites
