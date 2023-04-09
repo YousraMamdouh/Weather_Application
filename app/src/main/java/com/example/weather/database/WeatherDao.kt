@@ -10,9 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherDao {
     //current weather
     @Query("SELECT * FROM weather")
+   // @Query("SELECT * FROM Table WHERE timeStamp = (SELECT MAX(timeStamp) FROM Table)")
    fun getStoredCurrentWeather():WeatherModel
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 
     //favorites
