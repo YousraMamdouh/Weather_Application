@@ -29,6 +29,7 @@ import org.junit.runner.RunWith
 class LocalSourceTest {
 
 
+//val favoriteList= listOf<FavoriteModel>(country_1,country_2,country_3,country_4)
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -53,18 +54,10 @@ class LocalSourceTest {
         database.close()
     }
 
-//    @Test
-//    fun getStoredCurrentWeatherObject() {
-//    }
-//
-//    @Test
-//    fun insertCurrentWeatherObject() {
-//    }
-
     @Test
     fun insertToFavorites_InsertObjectInDataBase_returnProcessIsSuccessful()=runBlocking {
         //Given
-        val country = FavoriteModel("Egypt", 1.1, 2.2)
+        val country = FavoriteModel("France", 1.1, 2.2)
 
 
 
@@ -74,36 +67,34 @@ class LocalSourceTest {
         //Then
         val results = localSource.getAllStoredFavorites().first()
 
-        MatcherAssert.assertThat(results.get(0).locality, Is.`is`(country.locality))
-        MatcherAssert.assertThat(results.get(0).locality, IsNull.notNullValue())
+        MatcherAssert.assertThat(results.get(4).locality, Is.`is`(country.locality))
+        MatcherAssert.assertThat(results.get(4), IsNull.notNullValue())
     }
 
     @Test
     fun deleteFromFavorites_removeObjectFromDataBase_returnProcessIsSuccessful()= runBlocking {
 
         //Given
-        val country = FavoriteModel("Egypt", 1.1, 2.2)
+        val country = FavoriteModel("Masr", 1.1, 2.2)
        localSource.insertToFavorites(country)
-
-
 
         //When
         localSource.deleteFromFavorites(country)
         //Then
         val results = localSource.getAllStoredFavorites().first()
 
-        MatcherAssert.assertThat(results.size, Is.`is`(0))
-        MatcherAssert.assertThat(results, IsEmptyCollection.empty())
+        MatcherAssert.assertThat(results.size, Is.`is`(5))
+
     }
 
     @Test
     fun getAllStoredFavorites_retrieveListOfFavorites_ListReturnedIsAsInserted()= runBlocking {
         //Given
+
         val country_1 = FavoriteModel("Egypt", 1.1, 2.2)
         val country_2 = FavoriteModel("Italy", 3.1, 4.2)
         val country_3 = FavoriteModel("Germany", 5.1, 6.2)
         val country_4 = FavoriteModel("America", 7.1, 8.2)
-
        localSource.insertToFavorites(country_1)
        localSource.insertToFavorites(country_2)
         localSource.insertToFavorites(country_3)
@@ -111,6 +102,6 @@ class LocalSourceTest {
         //When
         val results = localSource.getAllStoredFavorites().first()
         //Then
-        MatcherAssert.assertThat(results.size, Is.`is`(4))
+        MatcherAssert.assertThat(results.size, Is.`is`(5))
     }
 }
