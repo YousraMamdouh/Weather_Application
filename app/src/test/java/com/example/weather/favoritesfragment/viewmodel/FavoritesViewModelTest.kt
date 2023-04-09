@@ -9,6 +9,8 @@ import com.example.weather.database.FakeLocalDataSource
 import com.example.weather.model.*
 import com.example.weather.network.FakeRemoteDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.resumeDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.core.Is
 import org.hamcrest.core.IsNull
@@ -72,10 +74,10 @@ class FavoritesViewModelTest {
 
     @Test
     fun getFavorites_retrieveFavoritesFromDatabase_returnSuccessfully()= runBlockingTest {
-
+        mainDispatcherRule.pauseDispatcher()
         //When
         val result = favoriteViewModel.favorites.getOrAwaitValue {  }
-
+        mainDispatcherRule.resumeDispatcher()
         //Then
         assertThat(result, IsNull.notNullValue())
 
@@ -83,14 +85,15 @@ class FavoritesViewModelTest {
 
     @Test
     fun insetToFavorites_insertItemInRoom_processSucceeded() {
-
+        //pause dispatcher to verify initial value
+        mainDispatcherRule.pauseDispatcher()
         //When
         favoriteViewModel.insetToFavorites(   FavoriteModel(
             "Egypt", lat = 31.2000917,
             lon = 29.9187383
         ))
         val result =favoriteViewModel.favorites.getOrAwaitValue {  }
-
+        mainDispatcherRule.resumeDispatcher()
         //Then
         assertThat(result, IsNull.notNullValue())
         assertThat(result.size, Is.`is`(5))
@@ -98,11 +101,13 @@ class FavoritesViewModelTest {
 
     @Test
     fun deleteFromFavorites_removeObjectFromDatabase_processSucceeded() {
+        //pause dispatcher to verify initial value
+        mainDispatcherRule.pauseDispatcher()
 
         //When
         favoriteViewModel.deleteFromFavorites(favoritesList.get(0))
         val result =favoriteViewModel.favorites.getOrAwaitValue {  }
-
+        mainDispatcherRule.resumeDispatcher()
         //Then
         assertThat(result, IsNull.notNullValue())
         assertThat(result.size, Is.`is`(3))

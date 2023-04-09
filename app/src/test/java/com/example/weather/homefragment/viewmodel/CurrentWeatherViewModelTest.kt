@@ -12,6 +12,8 @@ import com.example.weather.model.WeatherModel
 import com.example.weather.network.FakeRemoteDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.resumeDispatcher
 import org.hamcrest.core.IsNull
 import org.junit.Assert.*
 
@@ -79,16 +81,18 @@ class CurrentWeatherViewModelTest {
         //When calling weatherModel Object
 
         val result=viewModel.getCurrentWeather(lat,lon,lang,validAppid,unit)
+        mainDispatcherRule.resumeDispatcher()
         //Then The result must be not null
         assertThat(result,IsNull.notNullValue())
     }
 
     @Test
     fun getOfflineWeather_retrieveWeatherObjectFromDataBase_ProcessSucceeded() {
-
+        mainDispatcherRule.pauseDispatcher()
         //When retrieving weatherModel Object
 
         val result=viewModel.getCurrentWeatherObjectFromDatabase()
+        mainDispatcherRule.resumeDispatcher()
         //Then The object must be inserted
 
         assertThat(result,IsNull.notNullValue())
@@ -96,7 +100,7 @@ class CurrentWeatherViewModelTest {
 
     @Test
     fun getCurrentWeather_callWeatherObjectFromAPI_returnWeatherObject()= runBlocking {
-
+        mainDispatcherRule.pauseDispatcher()
         //Given arguments of weatherModel
         val lat=31.2000917.toString()
         val lon=29.9187383.toString()
@@ -107,16 +111,18 @@ class CurrentWeatherViewModelTest {
         //When calling weatherModel Object
 
         val result=viewModel.getCurrentWeather(lat,lon,lang,validAppid,unit)
+        mainDispatcherRule.resumeDispatcher()
         //Then The result must be not null
         assertThat(result,IsNull.notNullValue())
     }
 
     @Test
     fun getCurrentWeatherObjectFromDatabase_retrieveWeatherObjectFromDataBase_ProcessSucceeded() {
-
+        mainDispatcherRule.pauseDispatcher()
         //When retrieving weatherModel Object
 
         val result=viewModel.getCurrentWeatherObjectFromDatabase()
+        mainDispatcherRule.resumeDispatcher()
         //Then The object must be inserted
 
         assertThat(result,IsNull.notNullValue())
@@ -124,7 +130,7 @@ class CurrentWeatherViewModelTest {
 
     @Test
     fun insertCurrentWeather_addCurrentWeatherObjectToDataBase_processSucceeded() {
-
+        mainDispatcherRule.pauseDispatcher()
         //Given arguments of weatherModel
         val lat=31.2000917
         val lon=29.9187383
@@ -133,6 +139,7 @@ class CurrentWeatherViewModelTest {
         //When inserting the object in database
 
         val result=viewModel.insertCurrentWeather(WeatherModel(lat=lat, lon = lon, timezone = "Egypt"))
+        mainDispatcherRule.resumeDispatcher()
         //Then The object must be inserted
 
         assertThat(result,IsNull.notNullValue())
