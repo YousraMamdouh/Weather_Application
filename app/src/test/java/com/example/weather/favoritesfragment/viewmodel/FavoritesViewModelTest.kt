@@ -4,7 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.android.architecture.blueprints.todoapp.MainDispatcherRule
-import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
+import com.example.myweatherapp.getOrAwaitValue
+
 import com.example.weather.database.FakeLocalDataSource
 import com.example.weather.model.*
 import com.example.weather.network.FakeRemoteDataSource
