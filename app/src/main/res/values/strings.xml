@@ -33,4 +33,6 @@
     <string name="save">Save</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
 </resources>

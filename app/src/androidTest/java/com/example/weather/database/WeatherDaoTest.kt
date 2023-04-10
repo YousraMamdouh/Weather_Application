@@ -49,22 +49,21 @@ class WeatherDaoTest {
         database.close()
     }
 
-//    @Test
-//    fun getStoredCurrentWeather_retrieveCurrentWeather_returnObjectOfWeatherModel() =
-//        runBlockingTest {
-//            //Given
-//            //  val currentWeather= WeatherModel()
-//
-//            //  dao.insertCurrentWeatherObject(currentWeather)
-//            //When
-//            val results = dao.getStoredCurrentWeather()
-//            //Then
-//        }
-//
-//    @Test
-//    fun insertCurrentWeatherObject_InsertObjectInDataBase_returnProcessIsSuccessful() {
-//
-//    }
+    @Test
+    fun getStoredCurrentWeather_retrieveCurrentWeather_returnObjectOfWeatherModel() =runBlocking {
+            //Given
+            //  val currentWeather= WeatherModel()
+
+            //  dao.insertCurrentWeatherObject(currentWeather)
+            //When
+            val results = dao.getStoredCurrentWeather()
+            //Then
+        }
+
+    @Test
+    fun insertCurrentWeatherObject_InsertObjectInDataBase_returnProcessIsSuccessful() {
+
+    }
 
     @Test
     fun getAllFavorites_retrieveListOfFavorites_ListReturnedIsAsInserted() = runBlocking {

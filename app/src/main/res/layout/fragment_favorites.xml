@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_2"
-    tools:context=".alertsFragment.AlertsFragment">
+    tools:context=".alertsFragment.view.AlertsFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFavoriteButton"

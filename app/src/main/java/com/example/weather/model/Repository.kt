@@ -68,6 +68,23 @@ class Repository (private var remoteSource: RemoteSource,
     localSource.deleteFromFavorites(favoriteModel)
     }
 
+    override suspend fun insertToAlerts(alertModel: AlertsModel):Long {
+     return localSource.insertToAlerts(alertModel)
+    }
+
+    override suspend fun deleteFromAlerts(id: Int) {
+        localSource.deleteFromAlerts(id)
+    }
+
+
+
+    override suspend fun getAllStoredAlerts(): Flow<List<AlertsModel>> {
+    return localSource.getAllStoredAlerts()
+    }
+
+    override suspend fun getAlert(id: Int): AlertsModel {
+       return localSource.getAlert(id)
+    }
 
 
 }

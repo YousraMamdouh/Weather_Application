@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.example.weather.databinding.FragmentSetthingsBinding
 import com.example.weather.utilities.LocaleHelper
+import com.example.weather.utilities.Utilities
 import java.util.*
 
 
@@ -105,9 +106,14 @@ class SettingsFragment : Fragment() {
             if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("en")) {
                 println("condetion eno eng:${sharedPrefs?.getString(KEY_LANG, "null").toString()}")
                 sharedPrefs?.edit()?.putString(KEY_LANG, "ar")?.apply()
+                Utilities.changeLanguage("ar",requireContext())
+              //  Utilities.convertToArabic("ar")
+                LocaleHelper.setLocale(requireContext(),"ar")
             } else if ((sharedPrefs?.getString(KEY_LANG, "null").toString()).equals("ar")) {
                 println("condetion eno arabic :${sharedPrefs?.getString(KEY_LANG, "null").toString()}")
                 sharedPrefs?.edit()?.putString(KEY_LANG, "en")?.apply()
+                Utilities.changeLanguage("en",requireContext())
+              //  LocaleHelper.setLocale(requireContext(),"en")
             }
         //    changeLanguageAndLayout(language)
 

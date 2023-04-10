@@ -11,11 +11,6 @@ interface RepositoryInterface {
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
 
 
-//    //Store weather info
-//    fun insertWeather(weatherInfo: LocalCurrentWeatherModel)
-//    fun deleteAll()
-//    fun getLocalWeather(latLon:String): LiveData<LocalCurrentWeatherModel>
-
 
     //fav
 
@@ -26,11 +21,12 @@ interface RepositoryInterface {
 
 
 
-//    //alert
-//    val storedAlertsWeather: LiveData<List<CustomAlert>>
-//    fun deleteAlertWeather(customAlert: CustomAlert)
-//    fun insertAlertWeather(id:String, address:String, lon:String, lan:String, dates:String,
-//                           time:String)
+    //Alerts
+
+    suspend fun insertToAlerts(alertModel: AlertsModel):Long
+    suspend fun deleteFromAlerts(id:Int)
+    suspend fun getAllStoredAlerts(): Flow<List<AlertsModel>>
+    suspend fun getAlert(id:Int):AlertsModel
 
 
 }

@@ -38,4 +38,21 @@ class FakeRepository(  var favoritesList: MutableList<FavoriteModel> = mutableLi
     override suspend fun deleteFromFavorites(favInfo: FavoriteModel) {
        favoritesList.remove(favInfo)
     }
+
+    override suspend fun insertToAlerts(alertModel: AlertsModel): Long {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteFromAlerts(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+
+    override suspend fun getAllStoredAlerts(): Flow<List<AlertsModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getAlert(id: Int): AlertsModel {
+        TODO("Not yet implemented")
+    }
 }

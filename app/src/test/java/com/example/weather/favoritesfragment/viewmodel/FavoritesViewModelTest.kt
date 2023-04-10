@@ -25,6 +25,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class FavoritesViewModelTest {
     @get:Rule
+
     val instance= InstantTaskExecutorRule()
     @get:Rule
     val mainDispatcherRule= MainDispatcherRule()

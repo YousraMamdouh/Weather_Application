@@ -1,6 +1,7 @@
 package com.example.weather.database
 
 import com.example.mvvn.network.RemoteSource
+import com.example.weather.model.AlertsModel
 import com.example.weather.model.FavoriteModel
 import com.example.weather.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +29,25 @@ class FakeLocalDataSource(var favoritesList: MutableList<FavoriteModel> = mutabl
 
     override suspend fun getAllStoredFavorites(): Flow<List<FavoriteModel>> = flow {
        emit(favoritesList)
+    }
+
+    override suspend fun insertToAlerts(alertModel: AlertsModel): Long {
+        TODO("Not yet implemented")
+    }
+
+
+    override suspend fun deleteFromAlerts(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+
+
+    override suspend fun getAllStoredAlerts(): Flow<List<AlertsModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getAlert(id: Int): AlertsModel {
+        TODO("Not yet implemented")
     }
 
 
