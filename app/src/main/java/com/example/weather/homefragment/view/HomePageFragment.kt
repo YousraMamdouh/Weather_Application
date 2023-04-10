@@ -6,9 +6,11 @@ import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,11 +25,13 @@ import com.example.weather.databinding.FragmentHomePageBinding
 import com.example.weather.homefragment.viewmodel.CurrentWeatherViewModel
 import com.example.weather.model.Repository
 import com.example.weather.model.WeatherModel
+import com.example.weather.network.ApiState
 import com.example.weather.network.WeatherClient
 import com.example.weather.utilities.LocaleHelper
 import com.example.weather.utilities.Utilities
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -139,17 +143,37 @@ class HomePageFragment : Fragment() {
 //        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
         if (Utilities.isConnectedToInternet(context)) {
             println("fe net ya basha")
-            MainScope().launch(Dispatchers.IO) {
+            lifecycleScope.launch {
+             //   Log.i("homeApi",it.data.timezone.toString())
                 currentViewModel.getCurrentWeather(lat, lon, lang, apiKey, unit)
+                currentViewModel._currentLocationWeatherFlow.collectLatest {
+                    when(it){
+                        is ApiState.Loading->{
+                           Toast.makeText(requireContext(),"Loading",Toast.LENGTH_LONG)
+                        }
+                        is ApiState.Success->{
+                            val current=it.data
+                            Log.i("homeApi",it.data.timezone.toString())
+                            insertCurrentInDatabase(current)
+                            updateUI(current)
+                            showCurrentDate()
+                            selectAppropriateIcon(current)
+                        }
+                        is ApiState.Failure->{
+                            Toast.makeText(requireContext(),"Failed to get data",Toast.LENGTH_LONG)
+
+                        }
+                    }
+                }
             }
 
             //Update home details from internet object
-            currentViewModel.onlineWeather.observe(requireActivity()) { current ->
-                insertCurrentInDatabase(current)
-                updateUI(current)
-                showCurrentDate()
-                selectAppropriateIcon(current)
-            }
+//            currentViewModel.onlineWeather.observe(requireActivity()) { current ->
+//                insertCurrentInDatabase(current)
+//                updateUI(current)
+//                showCurrentDate()
+//                selectAppropriateIcon(current)
+//            }
 
 
         } else {

@@ -3,6 +3,8 @@ package com.example.weather.network
 import ApiService
 import com.example.mvvn.network.RemoteSource
 import com.example.weather.model.WeatherModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import retrofit2.Response
 
 
@@ -31,8 +33,14 @@ class WeatherClient private constructor(): RemoteSource {
         lang: String,
         id: String,
         unit:String
-    ): Response<WeatherModel> {
+    ): StateFlow<WeatherModel> {
         val response=weatherService.getCurrentWeather(lat,lon,lang,id,unit)
-        return response
+        var weatherModel:WeatherModel?=null
+        if(response.isSuccessful)
+        {
+         weatherModel= response.body()!!
+        }
+       val stateFlow=MutableStateFlow(weatherModel) as StateFlow<WeatherModel>
+        return stateFlow
     }
 }

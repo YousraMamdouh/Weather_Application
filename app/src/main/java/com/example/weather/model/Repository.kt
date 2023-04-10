@@ -9,6 +9,7 @@ import com.example.mvvn.network.RemoteSource
 import com.example.weather.database.LocalSource
 import com.example.weather.database.WeatherDatabase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
@@ -34,13 +35,14 @@ class Repository (private var remoteSource: RemoteSource,
             )
         }
     }
-    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): Flow<Response<WeatherModel>>
+    override suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): StateFlow<WeatherModel>
     {
         //println("da5alt el repo")
        // val currentWeather= remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)
       //  println("bosy da eli wasali delwa2ty:"+currentWeather.current.weather.get(0).id)
        // return currentWeather
-        return flow { emit((remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit))) }
+       // return flow { emit((remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit))) }
+        return remoteSource.getCurrentWeather(lat,lon,lang,apiKey,unit)
     }
 
     override suspend fun getStoredCurrentWeatherObjectFromDatabase(): WeatherModel {

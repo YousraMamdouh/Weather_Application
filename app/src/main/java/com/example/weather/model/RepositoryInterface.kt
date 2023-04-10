@@ -2,10 +2,11 @@ package com.example.weather.model
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import retrofit2.Response
 
 interface RepositoryInterface {
-    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String):Flow<Response<WeatherModel>>
+    suspend fun getCurrentLocationWeather(lat:String,lon:String,lang:String,apiKey:String,unit:String): StateFlow<WeatherModel>
     suspend fun getStoredCurrentWeatherObjectFromDatabase():WeatherModel
 
     suspend fun insertCurrentWeatherObject(weatherObject:WeatherModel)
